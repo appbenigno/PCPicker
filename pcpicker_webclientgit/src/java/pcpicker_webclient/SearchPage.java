@@ -6,6 +6,7 @@
 package pcpicker_webclient;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class SearchPage extends HttpServlet {
         String componentType = (String) request.getParameter("test");
         if(componentType==null||componentType.equals(""))
             componentType = (String) request.getParameter("componentType");
-
+        
         
         //todo - on filterget get value max min
         int setMaxPrice = getMaxPrice(componentType);
@@ -105,7 +106,7 @@ public class SearchPage extends HttpServlet {
         request.setAttribute("setMinrefreshrate", setMinrefreshrate);
         request.setAttribute("maxrefreshrate",200);
         
-        
+        request.setAttribute("componentType", componentType);
         request.setAttribute("aspectRatios",getAspectRatios());
         request.setAttribute("maxResolutions",getMaxResolutions());
         request.setAttribute("storageInterface",getStorageInterface());
@@ -131,63 +132,167 @@ public class SearchPage extends HttpServlet {
         
         if(compType.equals("Processor") || compType.equals("CPU"))
         {
-            List<Processor> components = Methods.getProcessorList();
+            List<Processor> components = WebMethods.getProcessorList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+          
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+             //  String corethreads = components.ge
+                
+              //  items.put("4",components.get(i).g);
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("GPU") || compType.equals("graphicscard"))
         {
-            List<GraphicsCard> components = Methods.getGraphicsCardList();
+            List<GraphicsCard> components = WebMethods.getGraphicsCardList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Monitor"))
         {
-            List<Monitor> components = Methods.getMonitorList();
+            List<Monitor> components = WebMethods.getMonitorList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Memory"))
         {
-            List<Memory> components = Methods.getMemoryList();
+            List<Memory> components = WebMethods.getMemoryList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Mouse"))
         {
-            List<Mouse> components = Methods.getMouseList();
+            List<Mouse> components = WebMethods.getMouseList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Motherboard"))
         {
-            List<Motherboard> components = Methods.getMotherboardList();
+            List<Motherboard> components = WebMethods.getMotherboardList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Cooler"))
         {
-            List<Cooler> components = Methods.getCoolerList();
+            List<Cooler> components = WebMethods.getCoolerList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Storage"))
         {
-            List<Storage> components= Methods.getStorageList();
+            List<Storage> components= WebMethods.getStorageList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Power Supply"))
         {
-            List<PowerSupply> components = Methods.getPowerSupplyList();
+            List<PowerSupply> components = WebMethods.getPowerSupplyList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
         else if(compType.equals("Keyboard"))
         {
-            List<Keyboard> components = Methods.getKeyboardList();
+            List<Keyboard> components = WebMethods.getKeyboardList();
             for(int i = 0; i < components.size();i++)
-                manuf.put(Integer.toString(i), components.get(i).getCompName());
+            {
+                HashMap items = new HashMap();
+             
+                items.put("1",components.get(i).getPartId());
+                items.put("2",components.get(i).getPartName());
+                items.put("3",Double.toString(components.get(i).getPartPrice()));
+                
+                             
+                
+                manuf.put(Integer.toString(i), items);
+            }
         }
 //        //todo -- get motherboard formfactor
        
@@ -216,7 +321,7 @@ public class SearchPage extends HttpServlet {
     {
         HashMap manuf = new HashMap();
         
-        List<String> resos = Methods.getMaxResolutions_1();
+        List<String> resos = WebMethods.getMaxResolutions_1();
        
         for(int i = 0; i < resos.size(); i++)
             manuf.put(Integer.toString(i),resos.get(i));
@@ -260,7 +365,7 @@ public class SearchPage extends HttpServlet {
     {
         HashMap manuf = new HashMap();
       
-        List<String> memtypes = Methods.getGPUMemoryTypes();
+        List<String> memtypes = WebMethods.getGPUMemoryTypes();
 
         for(int i = 0; i < memtypes.size(); i++)
             manuf.put(Integer.toString(i),memtypes.get(i));
@@ -272,7 +377,7 @@ public class SearchPage extends HttpServlet {
     {
         HashMap manuf = new HashMap();
         
-        List<String> memtypes = Methods.getMemoryTypes_1();
+        List<String> memtypes = WebMethods.getMemoryTypes_1();
        
         for(int i = 0; i < memtypes.size(); i++)
             manuf.put(Integer.toString(i),memtypes.get(i));
@@ -322,7 +427,7 @@ public class SearchPage extends HttpServlet {
             default: comp_type = componentType;
         }       
         
-        List<String> manufs =  Methods.getManufacturers_1(comp_type);
+        List<String> manufs =  WebMethods.getManufacturers_1(comp_type);
         for(int i = 0; i < manufs.size(); i++)
             manuf.put(Integer.toString(i), manufs.get(i));
         

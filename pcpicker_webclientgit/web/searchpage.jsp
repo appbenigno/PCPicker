@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -244,9 +245,10 @@
         </div>
        
         <div class="content">
-            <form method="get" action="SearchPage">
+           
                 <div class ="search_filter_container">
-
+                    <form action="SearchPage" method="get">
+                        <input type="hidden" name="componentType" value="${componentType}">
                         <div class ="search_filter_banner">
                             Filter
                         </div>
@@ -645,45 +647,55 @@
                         <div class ="search_filter_wrapper"> 
                             <br><input type="submit" value="Filter results">
                         </div>
-
+                    </form>
 
 
                 </div>
-
-
-               
 
                 <div class ="search_results_container_outer">
                     <div class ="search_filter_banner">
                         <input type = "text" value="${componentType}" name="componentType" readonly="readonly">
                     </div>
-                    <div class="search_results_container_inner">
+                    <div class="search_results_container_inner">                      
                       
-                      
-                       
-                        <div style="display:hidden;">
                         <form method="post" action = "Cart">
                                 <a href ="#" style="color:black;"></a>
                                 
                                 <input type="submit" name = "submit" value ="qwe" >                                
                                <br>
                         </form>
-                        </div>
-                        
+                                      
                         <form method="post" action = "Cart">
+                            
+                            <input type="hidden" name ="numListItems" value ="${fn:length(componentslist)}">
                             <c:forEach items="${componentslist}" var="components_" varStatus ="loopCounter">
-
-                                    <a href ="#" style="color:black;">${components_.value}</a>
-
-                                    <input type="submit+${loopCounter.index}" name = "submit${loopCounter.index}" value ="Add to Cart" >                                
-                                    <br>
-
+                                <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
+                                    <c:choose>
+                                        <c:when test="${loopCounter2.index == 0}">
+                                            compid: ${details.value}
+                                            <input type ="hidden" name ="partid" value ="${details.value}">
+                                        </c:when>
+                                        <c:when test="${loopCounter2.index == 1}">
+                                            partname: ${details.value}
+                                        </c:when>
+                                        <c:when test="${loopCounter2.index == 2}">
+                                            price: ${details.value}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${details.value}
+                                        </c:otherwise>
+                                    </c:choose>
+                                   
+                                   
+                                </c:forEach>
+                                 <input type="submit" value="Add to Cart" name="submit${loopCounter.index}">
+                               <br>
                             </c:forEach>
                             
                        </form>      
                                 
                         
-                                
+                
                                 
                        
                     </div>
@@ -697,7 +709,7 @@
 
 
 
-             </form>   
+               
         </div>
         
                

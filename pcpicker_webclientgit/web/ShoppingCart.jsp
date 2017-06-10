@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,6 +49,49 @@
                 <div class ="search_button">
                     <input type="submit" value="search">
                 </div>
+            </div>
+        </div>
+                
+                
+                
+         
+        <div class="content">       
+            <div class ="search_results_container_outer">
+                <div class="search_results_container_inner">                      
+                      
+                 
+                                      
+                        <form method="post" action = "Cart">
+                            
+                            <input type="hidden" name ="numListItems" value ="${fn:length(cartList)}">
+                           
+                            <c:forEach items="${cartList}" var="components_" varStatus ="loopCounter">
+                                <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
+                                    <c:choose>
+                                        <c:when test="${loopCounter2.index == 0}">
+                                            compid: ${details.value}
+                                            <input type ="hidden" name ="partid" value ="${details.value}">
+                                        </c:when>
+                                        <c:when test="${loopCounter2.index == 1}">
+                                            partname: ${details.value}
+                                        </c:when>
+                                        <c:when test="${loopCounter2.index == 2}">
+                                            price: ${details.value}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${details.value}
+                                        </c:otherwise>
+                                    </c:choose>
+                                   
+                                   
+                                </c:forEach>
+                                 <input type="submit" value="Remove from Cart" name="submit${loopCounter.index}">
+                               <br>
+                            </c:forEach>
+                             
+                            
+                    </form>  
+                </div>                    
             </div>
         </div>
     </body>

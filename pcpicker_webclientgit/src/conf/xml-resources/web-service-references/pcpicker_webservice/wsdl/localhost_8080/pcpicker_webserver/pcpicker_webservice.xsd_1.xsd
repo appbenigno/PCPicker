@@ -80,6 +80,10 @@
 
 <xs:element name="getOrder_componentListResponse" type="tns:getOrder_componentListResponse"/>
 
+<xs:element name="getPart" type="tns:getPart"/>
+
+<xs:element name="getPartResponse" type="tns:getPartResponse"/>
+
 <xs:element name="getPowerSupplyList" type="tns:getPowerSupplyList"/>
 
 <xs:element name="getPowerSupplyListResponse" type="tns:getPowerSupplyListResponse"/>
@@ -170,7 +174,7 @@
 
 <xs:complexType name="Order">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="order_id" type="xs:int"/>
 <xs:element name="cust_id" type="xs:int"/>
@@ -181,13 +185,13 @@
 </xs:complexContent>
 </xs:complexType>
 
-<xs:complexType name="Component">
+<xs:complexType name="Part">
 <xs:sequence>
-<xs:element name="comp_id" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_manufacturer" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_name" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_price" type="xs:double"/>
-<xs:element name="comp_type" type="xs:string" minOccurs="0"/>
+<xs:element name="part_id" type="xs:string" minOccurs="0"/>
+<xs:element name="part_manufacturer" type="xs:string" minOccurs="0"/>
+<xs:element name="part_name" type="xs:string" minOccurs="0"/>
+<xs:element name="part_price" type="xs:double"/>
+<xs:element name="part_type" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -213,7 +217,7 @@
 
 <xs:complexType name="Monitor">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="aspect_ratio" type="xs:string" minOccurs="0"/>
 <xs:element name="screen_size" type="xs:int"/>
@@ -236,9 +240,9 @@
 
 <xs:complexType name="Processor">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
-<xs:element name="core_clock" type="xs:string" minOccurs="0"/>
+<xs:element name="core_clock" type="xs:double"/>
 <xs:element name="core_num" type="xs:int"/>
 <xs:element name="thread_num" type="xs:int"/>
 <xs:element name="socket_" type="xs:string" minOccurs="0"/>
@@ -260,7 +264,7 @@
 
 <xs:complexType name="PowerSupply">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="wattage" type="xs:int"/>
 <xs:element name="rating" type="xs:string" minOccurs="0"/>
@@ -293,6 +297,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getPart">
+<xs:sequence>
+<xs:element name="part_id" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getPartResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Part" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getKeyboardList">
 <xs:sequence/>
 </xs:complexType>
@@ -305,7 +321,7 @@
 
 <xs:complexType name="Keyboard">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="backlit" type="xs:boolean"/>
 <xs:element name="type_" type="xs:string" minOccurs="0"/>
@@ -339,7 +355,7 @@
 
 <xs:complexType name="Motherboard">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="socket" type="xs:string" minOccurs="0"/>
 <xs:element name="mem_slots" type="xs:int"/>
@@ -361,7 +377,7 @@
 
 <xs:complexType name="Memory">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="mem_capacity" type="xs:int"/>
 <xs:element name="mem_ddr" type="xs:string" minOccurs="0"/>
@@ -382,16 +398,15 @@
 </xs:complexType>
 
 <xs:complexType name="Storage">
+<xs:complexContent>
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="type_" type="xs:string" minOccurs="0"/>
 <xs:element name="capacity" type="xs:int"/>
 <xs:element name="interface" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_id" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_manufacturer" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_name" type="xs:string" minOccurs="0"/>
-<xs:element name="comp_price" type="xs:double"/>
-<xs:element name="comp_type" type="xs:string" minOccurs="0"/>
 </xs:sequence>
+</xs:extension>
+</xs:complexContent>
 </xs:complexType>
 
 <xs:complexType name="getDeliveryList">
@@ -425,11 +440,11 @@
 
 <xs:complexType name="GraphicsCard">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="core_clock" type="xs:int"/>
 <xs:element name="mem_ddr" type="xs:string" minOccurs="0"/>
-<xs:element name="mem_capacity" type="xs:string" minOccurs="0"/>
+<xs:element name="mem_capacity" type="xs:int"/>
 <xs:element name="mem_clock" type="xs:int"/>
 </xs:sequence>
 </xs:extension>
@@ -462,32 +477,10 @@
 
 <xs:complexType name="Mouse">
 <xs:complexContent>
-<xs:extension base="tns:Component">
+<xs:extension base="tns:Part">
 <xs:sequence>
 <xs:element name="dpi" type="xs:int"/>
 <xs:element name="connection_" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:extension>
-</xs:complexContent>
-</xs:complexType>
-
-<xs:complexType name="getCoolerList">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="getCoolerListResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Cooler" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Cooler">
-<xs:complexContent>
-<xs:extension base="tns:Component">
-<xs:sequence>
-<xs:element name="liquid_cooling" type="xs:boolean"/>
-<xs:element name="rated_tdp" type="xs:int"/>
-<xs:element name="supported_sockets" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:extension>
 </xs:complexContent>
@@ -510,6 +503,28 @@
 <xs:element name="address" type="xs:string" minOccurs="0"/>
 <xs:element name="zip_code" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCoolerList">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getCoolerListResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Cooler" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Cooler">
+<xs:complexContent>
+<xs:extension base="tns:Part">
+<xs:sequence>
+<xs:element name="liquid_cooling" type="xs:boolean"/>
+<xs:element name="rated_tdp" type="xs:int"/>
+<xs:element name="supported_sockets" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
 </xs:complexType>
 
 <xs:complexType name="getImageList">

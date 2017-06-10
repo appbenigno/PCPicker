@@ -15,7 +15,7 @@ import pcpicker.*;
  * @author admin
  */
 public class ShoppingCart {
-    private List<Component> components = new ArrayList<Component>();
+    private List<Part> parts = new ArrayList<Part>();
     private static ShoppingCart instance;
     private ShoppingCart(){}
     
@@ -26,22 +26,23 @@ public class ShoppingCart {
         
         return instance;
     }
-    public void addItem(Component component)
+    public void addItem(Part component)
     {
-        components.add(component);
+        parts.add(component);
     }
-    public void removeItem(Component component)
+    public void removeItem(Part component)
     {
-        for(int i = 0; i < components.size();i++)
-            if(components.get(i).getCompId().equals(component.getCompId()))
-                components.remove(i);            
+        for(int i = 0; i < parts.size();i++)
+            if(parts.get(i).getPartId().equals(component.getPartId()))
+                parts.remove(i);            
     }
-    public List<Component> getList()
+    public List<Part> getList()
     {
-        return components;
+        return parts;
     }
-    public void destroy()
+    public void delete()
     {
+        parts = null;
         instance = null;
     }
 }

@@ -17,10 +17,6 @@
         <servlet-class>pcpicker_webclient.CreateAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartAdd</servlet-name>
-        <servlet-class>pcpicker_webclient.CartAdd</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Cart</servlet-name>
         <servlet-class>pcpicker_webclient.Cart</servlet-class>
     </servlet>
@@ -39,10 +35,6 @@
     <servlet-mapping>
         <servlet-name>CreateAccount</servlet-name>
         <url-pattern>/CreateAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CartAdd</servlet-name>
-        <url-pattern>/CartAdd</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>
