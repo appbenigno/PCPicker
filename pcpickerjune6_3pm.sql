@@ -86,15 +86,22 @@ BEGIN
     insert into order_part values(order_id, part_id, quantity);
 END//
 
+delimiter //
+create procedure getActiveOrders(cust_id_ int)
+BEGIN
+    select * from order_ where order_.cust_id = cust_id_ and order_.active = false;
+END//
+
+delimiter //
+create procedure getOrderItems(order_id_ int)
+BEGIN
+    select * from order_part where order_part.order_id = order_id;
+END//
 
 
-call addOrder(null,null);
-call addOrderPart(7,'ccpu125',2);
-select* from order_;
-select* from order_part;
 
 
-use pcpicker;
+
 
 call add_processor('ccpu123','Intel','Celeron G1840',2.8,2,2,'LGA 1150',53,2090,'Processor');
 call add_processor('ccpu124','Intel','Pentium G4400',3.3,2,2,'LGA 1151',54,2700,'Processor');

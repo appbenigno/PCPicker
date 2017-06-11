@@ -118,7 +118,7 @@ create table part_monitor
 
 create table branch
 (
-    branch_id int,
+    branch_id int auto_increment,
     city varchar(50),
     address varchar(255),
     zip_code int,
@@ -161,7 +161,7 @@ create table order_
     cust_id int,
     date_created date,
     payment_type varchar(20),
-    delivered bool default false,
+    active bool default false,
     primary key (order_id),
     foreign key (cust_id) references customer(cust_id)
 );
