@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import pcpicker_webservicefordesktop.OrderParts;
 
 public class OrderMain extends javax.swing.JFrame {
 
@@ -19,6 +20,18 @@ public class OrderMain extends javax.swing.JFrame {
     public OrderMain() {
         initComponents();
         populateTable();
+        btnAcceptOrder.setEnabled(false);
+        btnRejectOrder.setEnabled(false);
+        lblOrderNo.setVisible(false);
+        lblFName.setVisible(false);
+        lblLName.setVisible(false);
+        lblGender.setVisible(false);
+        lblAge.setVisible(false);
+        lblDate.setVisible(false);
+        lblDDetails.setVisible(false);
+        lblAddress.setVisible(false);
+        lblCity.setVisible(false);
+        lblZip.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -44,7 +57,7 @@ public class OrderMain extends javax.swing.JFrame {
         lblLName = new javax.swing.JLabel();
         lblGender = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btnComponentList = new javax.swing.JButton();
@@ -61,6 +74,10 @@ public class OrderMain extends javax.swing.JFrame {
         btnPrint = new javax.swing.JButton();
         lblPayment = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtBranchID = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDeliveryDate = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,6 +108,11 @@ public class OrderMain extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tblOrders);
 
         btnAcceptOrder.setText("Accept Order");
+        btnAcceptOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptOrderActionPerformed(evt);
+            }
+        });
 
         btnRejectOrder.setText("Reject Order");
 
@@ -110,7 +132,7 @@ public class OrderMain extends javax.swing.JFrame {
 
         jLabel3.setText("Gender:");
 
-        dateLabel.setText("Date Placeholder");
+        lblDate.setText("Date Placeholder");
 
         jLabel6.setText("Date:");
 
@@ -149,6 +171,16 @@ public class OrderMain extends javax.swing.JFrame {
 
         jLabel10.setText("Payment Method:");
 
+        jLabel5.setText("Branch ID:");
+
+        txtBranchID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBranchIDKeyPressed(evt);
+            }
+        });
+
+        jLabel7.setText("Delivery Date:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,42 +213,53 @@ public class OrderMain extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateLabel))
+                                .addComponent(lblDate))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAcceptOrder)
-                                    .addComponent(jLabel4))
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblOrderNo)
-                                    .addComponent(btnRejectOrder))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblOrderNo))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblAddress))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblDDetails))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCity)
-                                        .addGap(81, 81, 81)
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblZip)))
-                                .addGap(25, 25, 25))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPayment)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPrint)
+                                .addComponent(txtBranchID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lblAddress))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(lblDDetails))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel13)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lblCity)
+                                            .addGap(81, 81, 81)
+                                            .addComponent(jLabel14)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lblZip)))
+                                    .addGap(25, 25, 25))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblPayment)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnPrint)
+                                    .addContainerGap()))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtDeliveryDate, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAcceptOrder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRejectOrder)
                                 .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
@@ -230,7 +273,11 @@ public class OrderMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAcceptOrder)
-                    .addComponent(btnRejectOrder))
+                    .addComponent(btnRejectOrder)
+                    .addComponent(jLabel5)
+                    .addComponent(txtBranchID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -256,7 +303,7 @@ public class OrderMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(dateLabel)))
+                            .addComponent(lblDate)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -283,9 +330,23 @@ public class OrderMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComponentListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComponentListActionPerformed
-        viewCompList components = new viewCompList();
+        viewCompList components = new viewCompList((ArrayList<OrderParts>) getOrderComponentList());
         components.setVisible(true);
     }//GEN-LAST:event_btnComponentListActionPerformed
+
+    private void btnAcceptOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptOrderActionPerformed
+       int row = tblOrders.getSelectedRow();
+       acceptOrder(tblOrders.getValueAt(row, 1).toString(),Integer.parseInt(txtBranchID.getText()),txtDeliveryDate.getText()); //Branch and Date INC
+       lblOrderNo.setText(tblOrders.getValueAt(row, 1).toString());
+       lblFName.setText(tblOrders.getValueAt(row, 1).toString());
+       //Customer details and delivery details required
+       
+    }//GEN-LAST:event_btnAcceptOrderActionPerformed
+
+    private void txtBranchIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBranchIDKeyPressed
+            btnAcceptOrder.setEnabled(true);
+            btnRejectOrder.setEnabled(true);
+    }//GEN-LAST:event_txtBranchIDKeyPressed
 
     /**
      * @param args the command line arguments
@@ -328,7 +389,6 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JButton btnComponentList;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRejectOrder;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -338,7 +398,9 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -348,6 +410,7 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblDDetails;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFName;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblLName;
@@ -355,6 +418,8 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lblPayment;
     private javax.swing.JLabel lblZip;
     private javax.swing.JTable tblOrders;
+    private javax.swing.JTextField txtBranchID;
+    private javax.swing.JTextField txtDeliveryDate;
     // End of variables declaration//GEN-END:variables
 
     private static java.util.List<pcpicker_webservicefordesktop.Order> getOrderList() {
@@ -374,5 +439,17 @@ public class OrderMain extends javax.swing.JFrame {
             row[0] = orderList.get(i).getPaymentType();
             tblModel.addRow(row);
         }
+    }
+
+    private static java.util.List<pcpicker_webservicefordesktop.OrderParts> getOrderComponentList() {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getOrderComponentList();
+    }
+
+    private static void acceptOrder(java.lang.String orderId, int branchId, int deliveryDate) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        port.acceptOrder(orderId, branchId, deliveryDate);
     }
 }

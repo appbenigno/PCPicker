@@ -1,6 +1,8 @@
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 
 /*
@@ -21,8 +23,8 @@ public class viewCompList extends javax.swing.JFrame {
     public viewCompList() {
         initComponents();
     }
-    ArrayList<Object> compList = null;
-    public viewCompList(ArrayList<Object> obj) {
+    ArrayList<pcpicker_webservicefordesktop.OrderParts> compList = null;
+    public viewCompList(ArrayList<pcpicker_webservicefordesktop.OrderParts> obj) {
         initComponents();
         compList = obj;
     }
@@ -44,18 +46,23 @@ public class viewCompList extends javax.swing.JFrame {
 
         tblComponents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Order ID", "Part ID", "Quantity"
             }
         ));
         jScrollPane1.setViewportView(tblComponents);
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +87,10 @@ public class viewCompList extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,4 +132,22 @@ public class viewCompList extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblComponents;
     // End of variables declaration//GEN-END:variables
+
+    private static java.util.List<pcpicker_webservicefordesktop.OrderParts> getOrderComponentList() {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getOrderComponentList();
+    }
+    public void populateComponents(){
+        DefaultTableModel tblModel = (DefaultTableModel)tblComponents.getModel();
+        List<pcpicker_webservicefordesktop.OrderParts> orderList = getOrderComponentList();
+        Object row[] = new Object[3];
+        for (int i = 0 ; i < orderList.size() ; i++){
+            row[0] = orderList.get(i).getOrderId();
+            row[0] = orderList.get(i).getPartId();
+            row[0] = orderList.get(i).getQuantity();
+            tblModel.addRow(row);
+        }
+    }
 }
+
