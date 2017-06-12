@@ -389,3 +389,12 @@ BEGIN
     on part.part_id = part_monitor.part_id;
 END//
 Delimiter ;
+
+delimiter //
+create procedure get_order_list()
+BEGIN
+	select * from order_
+    right join order_part
+    on order_.order_id = order_part.part_id;
+END//
+Delimiter ;
