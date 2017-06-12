@@ -93,6 +93,11 @@ public class OrderMain extends javax.swing.JFrame {
         jLabel9.setText("Component(s):");
 
         btnComponentList.setText("View Component List");
+        btnComponentList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComponentListActionPerformed(evt);
+            }
+        });
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -285,6 +290,11 @@ public class OrderMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnComponentListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComponentListActionPerformed
+        viewCompList components = new viewCompList();
+        components.setVisible(true);
+    }//GEN-LAST:event_btnComponentListActionPerformed
 
     /**
      * @param args the command line arguments
