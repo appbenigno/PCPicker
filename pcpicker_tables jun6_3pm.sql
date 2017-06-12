@@ -116,14 +116,7 @@ create table part_monitor
     foreign key (part_id) references part(part_id)   
 );
 
-create table branch
-(
-    branch_id int auto_increment,
-    city varchar(50),
-    address varchar(255),
-    zip_code int,
-    primary key (branch_id)
-);
+
 
 create table image
 (
@@ -154,16 +147,25 @@ create table customer
     zip_code int,
     primary key (cust_id)
 );
-
+create table branch
+(
+    branch_id int auto_increment,
+    city varchar(50),
+    address varchar(255),
+    zip_code int,
+    primary key (branch_id)
+);
 create table order_
 (
     order_id int auto_increment,
     cust_id int,
     date_created date,
     payment_type varchar(20),
-    active bool default false,
+    active bool default true,
+    acceptedBy int default null,
     primary key (order_id),
-    foreign key (cust_id) references customer(cust_id)
+    foreign key (cust_id) references customer(cust_id),
+    foreign key (acceptedBy) references branch(branch_id)
 );
 
 
@@ -173,7 +175,9 @@ create table order_part
     order_id int,
     part_id varchar(25),
     quantity int,
-    primary key (order_id, part_id)
+    primary key (order_id, part_id),
+    foreign key (order_id) references order_(order_id),
+    foreign key (part_id) references part(part_id)
 );
 
 create table deliver
