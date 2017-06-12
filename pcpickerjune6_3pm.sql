@@ -83,9 +83,9 @@ BEGIN
 END//
 
 delimiter //
-create procedure addOrderpart(order_id int,  part_id varchar(25), quantity int)
+create procedure addOrderpart(order_id int,  part_id varchar(25), quantity int, price double)
 BEGIN
-    insert into order_part values(order_id, part_id, quantity);
+    insert into order_part values(order_id, part_id, quantity, price);
 END//
 
 

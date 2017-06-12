@@ -170,13 +170,12 @@ create table order_
     foreign key (acceptedBy) references branch(branch_id)
 );
 
-
-
 create table order_part
 (
     order_id int,
     part_id varchar(25),
     quantity int,
+    price double,
     primary key (order_id, part_id),
     foreign key (order_id) references order_(order_id),
     foreign key (part_id) references part(part_id)
