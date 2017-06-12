@@ -21,6 +21,7 @@ create procedure cancelOrder(order_id_ int)
 BEGIN
     update order_ set cancel = true where order_.order_id = order_id_;
     update order_ set active = false where order_.order_id = order_id_;
+    
 END//
 
 

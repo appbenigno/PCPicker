@@ -25,7 +25,8 @@ create procedure setOrderDeliveryDate
     deliveryDate_ date
 )
 BEGIN
-	update order_ set order_.deliveryDate = deliveryDate_ where order_.order_id = order_id;
+	update order_ set order_.deliveryDate = deliveryDate_ where order_.order_id = order_id_;
+    update order_ set order_.cancelDate = NOW() where order_id = order_id_;
 END//  
 
 call setOrderDeliveryDate(1,NOW())
