@@ -5,6 +5,8 @@
  */
 package pcpicker;
 
+import Pcpicker_webserviceForDesktop.Inventory;
+import Pcpicker_webserviceForDesktop.Branch;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -422,93 +424,6 @@ public class Pcpicker_webmethods {
         return a;
     }
 
-    public ArrayList<Customer> getCustomerList() {
-        ArrayList<Customer> a = new ArrayList(); ///////////////////////////////
-        int i = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql::localhost:3306/pcpicker", "root", "");
-
-            String sql = "{call get_Customer_list()}"; ////////////////////////////////
-            CallableStatement callableStatement = conn.prepareCall(sql);
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int last = a.size();
-                a.add(new Customer()); ////////////////////////////////////////////
-
-                a.get(last).setCust_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setUsername(rs.getString(2));//////////////////
-                a.get(last).setPassword(rs.getString(3));////////////////
-                a.get(last).setAddress(rs.getString(4));///////////////
-                a.get(last).setCity(rs.getString(5));////////////////
-                a.get(last).setZip_code(rs.getInt(6));/////////////////
-            }
-            callableStatement.close();
-            conn.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
-    }
-
-    public ArrayList<Order> getOrderList() {
-        ArrayList<Order> a = new ArrayList(); ///////////////////////////////
-        int i = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql::localhost:3306/pcpicker", "root", "");
-
-            String sql = "{call get_Order_list()}"; ////////////////////////////////
-            CallableStatement callableStatement = conn.prepareCall(sql);
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int last = a.size();
-                a.add(new Order()); ////////////////////////////////////////////
-
-                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setCust_id(rs.getInt(2));//////////////////
-                a.get(last).setDate_created(rs.getString(3));////////////////
-                a.get(last).setPayment_type(rs.getString(4));///////////////
-            }
-            callableStatement.close();
-            conn.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
-    }
-
-    public ArrayList<Order_component> getOrder_componentList() {
-        ArrayList<Order_component> a = new ArrayList(); ///////////////////////////////
-        int i = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql::localhost:3306/pcpicker", "root", "");
-
-            String sql = "{call get_Order_component_list()}"; ////////////////////////////////
-            CallableStatement callableStatement = conn.prepareCall(sql);
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int last = a.size();
-                a.add(new Order_component()); ////////////////////////////////////////////
-
-                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setComp_id(rs.getString(2));//////////////////
-                a.get(last).setQuantity(rs.getInt(3));////////////////
-            }
-            callableStatement.close();
-            conn.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
-    }
 
     public ArrayList<Delivery> getDeliveryList() {
         ArrayList<Delivery> a = new ArrayList(); ///////////////////////////////
@@ -566,4 +481,9 @@ public class Pcpicker_webmethods {
         }
         return a;
     }
+
+
+
+
+
 }

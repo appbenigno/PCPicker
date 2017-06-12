@@ -1,10 +1,86 @@
 package pcpicker;
 
+import java.sql.Date;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Order")
-public class Order extends Part
+public class Order
 {
+    @XmlElement(name = "order_id")
+    protected int order_id;    
+    @XmlElement(name = "cust_id")
+    protected int cust_id;    
+    @XmlElement(name = "date_created")
+    protected String date_created;
+    @XmlElement(name = "payment_type")
+    protected String payment_type;   
+    @XmlElement(name = "active")
+    protected Boolean active;
+    @XmlElement(name ="acceptedBy")
+    protected int acceptedBy; 
+    @XmlElement(name ="items")
+    protected List<Order_Parts> items;  
+    @XmlElement(name ="deliveryDate")
+    protected String deliveryDate; 
+    @XmlElement(name ="cancel")
+    protected Boolean cancel; 
+    @XmlElement(name ="cancelDate")
+    protected String cancelDate; 
+    /**
+     * @return the acceptedBy
+     */
+    public int getAcceptedBy() {
+        return acceptedBy;
+    }
+
+    /**
+     * @param acceptedBy the acceptedBy to set
+     */
+    public void setAcceptedBy(int acceptedBy) {
+        this.acceptedBy = acceptedBy;
+    }
+
+    /**
+     * @return the cancelDate
+     */
+    public String getCancelDate() {
+        return cancelDate;
+    }
+
+    /**
+     * @param cancelDate the cancelDate to set
+     */
+    public void setCancelDate(String cancelDate) {
+        this.cancelDate = cancelDate;
+    }
+  
+    
+    
+    
+    /**
+     * @return the 
+     */
+    public Boolean getActive() {
+        return active;
+    }  
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    /**
+     * @return the items
+     */
+    public List<Order_Parts> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<Order_Parts> items) {
+        this.items = items;
+    }
 
     /**
      * @return the order_id
@@ -61,12 +137,34 @@ public class Order extends Part
     public void setPayment_type(String payment_type) {
         this.payment_type = payment_type;
     }
-    @XmlElement(name = "order_id")
-    private int order_id;    
-    @XmlElement(name = "cust_id")
-    private int cust_id;    
-    @XmlElement(name = "date_created")
-    private String date_created;
-    @XmlElement(name = "payment_type")
-    private String payment_type;    
+
+    /**
+     * @return the deliveryDate
+     */
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    /**
+     * @param deliveryDate the deliveryDate to set
+     */
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    /**
+     * @return the cancel
+     */
+    public Boolean getCancel() {
+        return cancel;
+    }
+
+    /**
+     * @param cancel the cancel to set
+     */
+    public void setCancel(Boolean cancel) {
+        this.cancel = cancel;
+    }
+    
+ 
 }

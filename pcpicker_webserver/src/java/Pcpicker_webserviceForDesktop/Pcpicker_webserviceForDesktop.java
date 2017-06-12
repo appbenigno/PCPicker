@@ -14,12 +14,11 @@ import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import pcpicker.Branch;
 import pcpicker.Customer;
 import pcpicker.Delivery;
-import pcpicker.Inventory;
 import pcpicker.Order;
-import pcpicker.Order_component;
+import pcpicker.Order_Parts;
+import pcpicker.Part;
 
 /**
  *
@@ -30,6 +29,199 @@ public class Pcpicker_webserviceForDesktop {
 
     String user="root"; // meron rin sa Pcpicker_webservice
     String pass="1825";
+    
+//    @WebMethod(operationName = "getOrderList")
+//    public ResultSet getOrderList() {
+//        //ArrayList<Order> a = new ArrayList(); ///////////////////////////////
+//        //int i = 0;
+//        ResultSet rs = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+//
+//            String sql = "{call get_Order_list()}"; ////////////////////////////////
+//            CallableStatement callableStatement = conn.prepareCall(sql);
+//            rs = callableStatement.executeQuery();
+//
+//            callableStatement.close();
+//            conn.close();
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        return rs;
+//    }
+    
+    @WebMethod(operationName = "getOrderList")
+    public ArrayList<Order> getOrderList() {
+        ArrayList<Order> a = new ArrayList(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call ()}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                int last = a.size();
+                a.add(new Order()); ////////////////////////////////////////////
+
+                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
+                a.get(last).setCust_id(rs.getInt(2));//////////////////
+                a.get(last).setDate_created(rs.getString(3));////////////////
+                a.get(last).setPayment_type(rs.getString(4));///////////////
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
+    
+    
+    @WebMethod(operationName = "setOrderDeliveryDate")
+    public void setOrderDeliveryDate(@WebParam(name = "order_id") String order_id, @WebParam(name = "deliveryDate_") int deliveryDate_) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+          
+            String sql = "{call setOrderDeliveryDate(?,?)}"; 
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setString(1, order_id);
+            callableStatement.setInt(2,deliveryDate_);
+            
+            callableStatement.executeUpdate();
+            
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    @WebMethod(operationName = "acceptOrder")
+    public void acceptOrder(@WebParam(name = "order_id") String order_id, @WebParam(name = "branch_id") int branch_id, @WebParam(name = "deliveryDate_") int deliveryDate_) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+          
+            String sql = "{call acceptOrder(?,?,?)}"; 
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setString(1, order_id);
+            callableStatement.setInt(2,branch_id);
+            callableStatement.setInt(3,deliveryDate_);
+            
+            callableStatement.executeUpdate();
+            
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    @WebMethod(operationName = "getActivePendingOrders")
+    public ArrayList<Order> getActivePendingOrders() {
+        ArrayList<Order> a = new ArrayList(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call getActivePendingOrders(?)}"; ////////////////////////////////
+            
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                int last = a.size();
+                a.add(new Order()); ////////////////////////////////////////////
+
+                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
+                a.get(last).setCust_id(rs.getInt(2));//////////////////
+                a.get(last).setDate_created(rs.getString(3));////////////////
+                a.get(last).setPayment_type(rs.getString(4));
+                a.get(last).setActive(rs.getBoolean(5));
+                a.get(last).setItems(getOrderItems(a.get(last).getOrder_id()));
+                a.get(last).setDeliveryDate(rs.getString(7));
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
+    
+    private ArrayList<Order_Parts> getOrderItems(int order_id) {
+        ArrayList<Order_Parts> a = new ArrayList(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call getOrderItems(?)}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setInt(1, order_id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                int last = a.size();
+                a.add(new Order_Parts()); ////////////////////////////////////////////
+                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////t
+                String partId = rs.getString(2);
+                Part part = getPart(partId);
+                a.get(last).setPart_id(partId);//////////////////
+                a.get(last).setQuantity(rs.getInt(3));////////////////     
+                a.get(last).setPrice(part.getPart_price());
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
+    @WebMethod(operationName = "getPart")
+    public Part getPart(@WebParam(name = "part_id") String part_id) {
+        //TODO write your implementation code here:
+        Part a = new Part(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+           
+            String sql = "{call getPart('"+part_id+"')}"; ////////////////////////////////
+            //String sql = "{call getPart(?)};"; 
+            CallableStatement callableStatement = conn.prepareCall(sql);
+           // callableStatement.setString("1", part_id);
+            
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                a.setPart_id(rs.getString(1));/////////////////////////////
+                a.setPart_type(rs.getString(2));//////////////////
+                a.setPart_manufacturer(rs.getString(3));////////////////
+                a.setPart_name(rs.getString(4));///////////////
+                a.setPart_price(rs.getDouble(5));////////////////
+            //*****************************************nadoble comp_id         
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        return a;
+    }
+    
+    
+    
     
     /**
      * Web service operation
@@ -195,40 +387,9 @@ public class Pcpicker_webserviceForDesktop {
         }
         return a;
     }
-    
-      @WebMethod(operationName = "getOrderList")
-    public ArrayList<Order> getOrderList() {
-        ArrayList<Order> a = new ArrayList(); ///////////////////////////////
-        int i = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
-
-            String sql = "{call get_Order_list()}"; ////////////////////////////////
-            CallableStatement callableStatement = conn.prepareCall(sql);
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int last = a.size();
-                a.add(new Order()); ////////////////////////////////////////////
-
-                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setCust_id(rs.getInt(2));//////////////////
-                a.get(last).setDate_created(rs.getString(3));////////////////
-                a.get(last).setPayment_type(rs.getString(4));///////////////
-            }
-            callableStatement.close();
-            conn.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
-    }
-
     @WebMethod(operationName = "getOrder_componentList")
-    public ArrayList<Order_component> getOrder_componentList() {
-        ArrayList<Order_component> a = new ArrayList(); ///////////////////////////////
+    public ArrayList<Order_Parts> getOrder_componentList() {
+        ArrayList<Order_Parts> a = new ArrayList(); ///////////////////////////////
         int i = 0;
 
         try {
@@ -241,10 +402,10 @@ public class Pcpicker_webserviceForDesktop {
 
             while (rs.next()) {
                 int last = a.size();
-                a.add(new Order_component()); ////////////////////////////////////////////
+                a.add(new Order_Parts()); ////////////////////////////////////////////
 
                 a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setComp_id(rs.getString(2));//////////////////
+                a.get(last).setPart_id(rs.getString(2));//////////////////
                 a.get(last).setQuantity(rs.getInt(3));////////////////
             }
             callableStatement.close();

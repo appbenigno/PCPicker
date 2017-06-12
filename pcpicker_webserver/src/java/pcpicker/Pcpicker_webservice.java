@@ -536,12 +536,250 @@ public class Pcpicker_webservice
 
     /**
      * Web service operation
+     * return true success
+     * return false fail -- duplicate
      */
+    
+    @WebMethod(operationName = "login")
+    public String login(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+        
+        String custId="";
+        
+        try {
+             
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+     
+            String sql = "{call loginCustomer(?,?)}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+        
+            callableStatement.setString(1, username);
+            callableStatement.setString(2, password);
+            
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+               custId = rs.getString(1);
+            }
+           
+            
+            callableStatement.executeQuery();
+
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            
+        }
+        
+        return custId;
+    }
+    
+    
     @WebMethod(operationName = "addCustomer")
-    public String addCustomer(@WebParam(name = "username") String username, @WebParam(name = "password") String password, @WebParam(name = "address") String address, @WebParam(name = "city") String city, @WebParam(name = "zipCode") int zipCode) {
-        return "";
+    public Boolean addCustomer(@WebParam(name = "username") String username, @WebParam(name = "password") String password, @WebParam(name = "address") String address, @WebParam(name = "city") String city, @WebParam(name = "zipCode") int zipCode,@WebParam(name = "firstname") String firstname,@WebParam(name = "lastname") String lastname) {
+        
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+     
+            String sql = "{call addCustomer(?,?,?,?,?,?,?)}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+        
+            callableStatement.setString(1, username);
+            callableStatement.setString(2, password);
+            callableStatement.setString(3, address);
+            callableStatement.setString(4, city);
+            callableStatement.setInt(5, zipCode);
+            callableStatement.setString(6, firstname);
+            callableStatement.setString(7, lastname);
+           
+            
+            callableStatement.executeQuery();
+
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        
+        return true;
     }
  
-    
+    @WebMethod(operationName = "getPart")
+    public Part getPart(@WebParam(name = "part_id") String part_id) {
+        //TODO write your implementation code here:
+        Part a = new Part(); ///////////////////////////////
+        int i = 0;
 
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+           
+            String sql = "{call getPart('"+part_id+"')}"; ////////////////////////////////
+            //String sql = "{call getPart(?)};"; 
+            CallableStatement callableStatement = conn.prepareCall(sql);
+           // callableStatement.setString("1", part_id);
+            
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                a.setPart_id(rs.getString(1));/////////////////////////////
+                a.setPart_type(rs.getString(2));//////////////////
+                a.setPart_manufacturer(rs.getString(3));////////////////
+                a.setPart_name(rs.getString(4));///////////////
+                a.setPart_price(rs.getDouble(5));////////////////
+            //*****************************************nadoble comp_id         
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        return a;
+    }
+    
+    @WebMethod(operationName = "addOrder")
+    public int addOrder(@WebParam(name = "cust_id") int cust_id, @WebParam(name = "part_ids") ArrayList<String> part_ids, @WebParam(name = "quantity") ArrayList<Integer> quantity, @WebParam(name = "paymentType") String paymentType) {
+        int order_id = 0; 
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+          
+            String sql = "{call addOrder(?,?)}"; 
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setInt(1, cust_id);
+            callableStatement.setString(2,paymentType);
+            
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                order_id = rs.getInt(1);
+                   
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+          
+            String sql = "{call addOrderpart(?,?,?,?)}"; 
+            int numItems = part_ids.size();
+            for(int i = 0; i <numItems; i++)
+            {
+                String partId = part_ids.get(i);
+                int qty = quantity.get(i);
+                Part part = getPart(partId);
+                
+                CallableStatement callableStatement = conn.prepareCall(sql);
+                callableStatement.setInt(1, order_id);
+                callableStatement.setString(2,partId);
+                callableStatement.setInt(3,qty);
+                callableStatement.setDouble(4,part.getPart_price());
+                callableStatement.executeUpdate();
+                callableStatement.close();
+            }
+            
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        return order_id;
+    }
+    @WebMethod(operationName = "getOrderList")
+    public ArrayList<Order> getOrderList(@WebParam(name = "cust_id") int cust_id) {
+        ArrayList<Order> a = new ArrayList(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call getActiveOrders(?)}"; ////////////////////////////////
+            
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setInt(1,cust_id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                int last = a.size();
+                a.add(new Order()); ////////////////////////////////////////////
+
+                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////
+                a.get(last).setCust_id(rs.getInt(2));//////////////////
+                a.get(last).setDate_created(rs.getString(3));////////////////
+                a.get(last).setPayment_type(rs.getString(4));
+                a.get(last).setActive(rs.getBoolean(5));
+                a.get(last).setItems(getOrderItems(a.get(last).getOrder_id()));
+                a.get(last).setDeliveryDate(rs.getString(7));
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
+    
+    private ArrayList<Order_Parts> getOrderItems(int order_id) {
+        ArrayList<Order_Parts> a = new ArrayList(); ///////////////////////////////
+        int i = 0;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call getOrderItems(?)}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setInt(1, order_id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            while (rs.next()) {
+                int last = a.size();
+                a.add(new Order_Parts()); ////////////////////////////////////////////
+                a.get(last).setOrder_id(rs.getInt(1));/////////////////////////////t
+                String partId = rs.getString(2);
+                Part part = getPart(partId);
+                a.get(last).setPart_id(partId);//////////////////
+                a.get(last).setQuantity(rs.getInt(3));////////////////     
+                a.get(last).setPrice(part.getPart_price());
+            }
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
+    
+    @WebMethod(operationName = "cancelOrder")
+    public String cancelOrder(@WebParam(name = "order_id")int order_id) {
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
+
+            String sql = "{call cancelOrder(?)}"; ////////////////////////////////
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setInt(1, order_id);
+            callableStatement.executeUpdate();
+           
+            callableStatement.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return "";
+    }
+    
+    
 }

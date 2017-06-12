@@ -1,4 +1,4 @@
-package pcpicker;
+package Pcpicker_webserviceForDesktop;
 
 import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
