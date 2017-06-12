@@ -27,10 +27,12 @@ create procedure addCustomer(
     _password varchar(50),
     _address varchar(255),
     _city varchar(50),
-    _zip_code int
+    _zip_code int,
+    _firstname varchar(50),
+    _lastname varchar(50)
 )
 BEGIN
-    insert into customer(username,password,address,city,zip_code) values (_username,_password,_address,_city,_zip_code);
+    insert into customer(username,password,address,city,zip_code,firstname,lastname) values (_username,_password,_address,_city,_zip_code,_firstname,_lastname);
 END//
 call addCustomer('q','q','q','q',1)
 select * from customer
@@ -90,7 +92,7 @@ END//
 delimiter //
 create procedure getActiveOrders(cust_id_ int)
 BEGIN
-    select * from order_ where order_.cust_id = cust_id_ and order_.active = false order by order_.order_id desc;
+    select * from order_ where order_.cust_id = cust_id_ and order_.active = true order by order_.order_id desc;
 END//
 
 

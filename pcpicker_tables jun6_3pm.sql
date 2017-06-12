@@ -142,6 +142,8 @@ create table customer
     cust_id int auto_increment,
     username varchar(50) unique,
     password varchar(50),
+    firstname varchar(50),
+    lastname varchar(50),
     address varchar(255),
     city varchar(50),
     zip_code int,
