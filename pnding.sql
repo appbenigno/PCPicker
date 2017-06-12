@@ -7,6 +7,41 @@ BEGIN
 END//  
 
 delimiter //
+create procedure acceptOrder
+(
+    order_id varchar(25),
+    branch_id int,
+    deliveryDate_ date
+)
+BEGIN
+    update order_ set acceptedBy = branch_id where order_.order_id = order_id;
+    update order_ set order_.deliveryDate = deliveryDate_ where order_.order_id = order_id;
+END//  
+
+delimiter //
+create procedure setOrderDeliveryDate
+(
+    order_id varchar(25),
+    deliveryDate_ date
+)
+BEGIN
+	update order_ set order_.deliveryDate = deliveryDate_ where order_.order_id = order_id;
+END//  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+delimiter //
 create procedure getOrderDetails( order_id_ int )
 BEGIN
     select customer.cust_id, customer.lastname, customer.firstname, customer.address,
