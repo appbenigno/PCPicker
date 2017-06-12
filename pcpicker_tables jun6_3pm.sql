@@ -163,9 +163,9 @@ create table order_
     cust_id int,
     date_created date,
     payment_type varchar(20),
-    active bool default true,
-    deliveryDate date default null,
+    active bool default true,    
     acceptedBy int default null,
+    deliveryDate date default null,
     primary key (order_id),
     foreign key (cust_id) references customer(cust_id),
     foreign key (acceptedBy) references branch(branch_id)
