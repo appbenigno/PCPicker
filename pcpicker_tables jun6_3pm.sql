@@ -166,6 +166,7 @@ create table order_
     active bool default true,    
     acceptedBy int default null,
     deliveryDate date default null,
+    cancel bool default false,
     primary key (order_id),
     foreign key (cust_id) references customer(cust_id),
     foreign key (acceptedBy) references branch(branch_id)
