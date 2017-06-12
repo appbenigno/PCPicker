@@ -336,7 +336,7 @@ public class OrderMain extends javax.swing.JFrame {
 
     private void btnAcceptOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptOrderActionPerformed
        int row = tblOrders.getSelectedRow();
-       acceptOrder(tblOrders.getValueAt(row, 1).toString(),Integer.parseInt(txtBranchID.getText()),txtDeliveryDate.getText()); //Branch and Date INC
+       acceptOrder(tblOrders.getValueAt(row, 1).toString(),Integer.parseInt(txtBranchID.getText()),Integer.parseInt(txtDeliveryDate.getText())); //Branch and Date INC
        lblOrderNo.setText(tblOrders.getValueAt(row, 1).toString());
        lblFName.setText(tblOrders.getValueAt(row, 1).toString());
        //Customer details and delivery details required
