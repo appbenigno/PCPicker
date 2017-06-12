@@ -3,7 +3,7 @@ use pcpicker;
 delimiter //
 create procedure getActivePendingOrders(  )
 BEGIN
-    select * from order_ where active = true and acceptedBy = null;
+    select * from order_ where active = true and acceptedBy = null and cancel = false;
 END//  
 
 delimiter //
@@ -26,14 +26,7 @@ create procedure setOrderDeliveryDate
 )
 BEGIN
 	update order_ set order_.deliveryDate = deliveryDate_ where order_.order_id = order_id_;
-    update order_ set order_.cancelDate = NOW() where order_id = order_id_;
 END//  
-
-call setOrderDeliveryDate(1,NOW())
-
-
-
-
 
 
 
