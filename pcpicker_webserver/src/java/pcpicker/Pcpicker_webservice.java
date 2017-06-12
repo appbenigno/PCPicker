@@ -212,7 +212,7 @@ public class Pcpicker_webservice
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcpicker", user, pass);
 
-            String sql = "{call get_Memory_list()}"; ////////////////////////////////
+            String sql = "{call get_Monitor_list()}"; ////////////////////////////////
             CallableStatement callableStatement = conn.prepareCall(sql);
             ResultSet rs = callableStatement.executeQuery();
 
@@ -333,7 +333,7 @@ public class Pcpicker_webservice
                 //*****************************************nadoble comp_id
                 a.get(last).setType_(rs.getString(7));/////////////////
                 a.get(last).setCapacity(rs.getInt(8));/////////////////
-                a.get(last).setInterface_(rs.getString(8));
+                a.get(last).setInterface_(rs.getString(9));
             }
             callableStatement.close();
             conn.close();
@@ -368,7 +368,7 @@ public class Pcpicker_webservice
                 //*****************************************nadoble comp_id
                 a.get(last).setWattage(rs.getInt(7));/////////////////
                 a.get(last).setRating(rs.getString(8));/////////////////
-                a.get(last).setForm_factor(rs.getString(8));
+                a.get(last).setForm_factor(rs.getString(9));
             }
             callableStatement.close();
             conn.close();
