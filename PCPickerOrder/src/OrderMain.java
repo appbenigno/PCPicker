@@ -8,11 +8,19 @@
  *
  * @author sam
  */
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import pcpicker.Order;
+import pcpicker.Order_component;
+
 public class OrderMain extends javax.swing.JFrame {
 
     /** Creates new form PCPicker */
     public OrderMain() {
         initComponents();
+        populateTable();
     }
 
     /** This method is called from within the constructor to
@@ -90,9 +98,9 @@ public class OrderMain extends javax.swing.JFrame {
 
         jLabel8.setText("Age:");
 
-        jLabel9.setText("Component(s):");
+        jLabel9.setText("Part(s):");
 
-        btnComponentList.setText("View Component List");
+        btnComponentList.setText("View Part List");
         btnComponentList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComponentListActionPerformed(evt);
@@ -107,7 +115,7 @@ public class OrderMain extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Order ID", "Customer ID", "Date Created", "Payment Type"
             }
         ));
         jScrollPane2.setViewportView(tblOrders);
@@ -367,4 +375,22 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JTable tblOrders;
     // End of variables declaration//GEN-END:variables
 
+    private static java.util.List<pcpicker_webservicefordesktop.Order> getOrderList() {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getOrderList();
+    }
+
+    public void populateTable(){
+        DefaultTableModel tblModel = (DefaultTableModel)tblOrders.getModel();
+        List<pcpicker_webservicefordesktop.Order> orderList = getOrderList();
+        Object row[] = new Object[4];
+        for (int i = 0 ; i < orderList.size() ; i++){
+            row[0] = orderList.get(i).getOrderId();
+            row[0] = orderList.get(i).getCustId();
+            row[0] = orderList.get(i).getDateCreated();
+            row[0] = orderList.get(i).getPaymentType();
+            tblModel.addRow(row);
+        }
+    }
 }

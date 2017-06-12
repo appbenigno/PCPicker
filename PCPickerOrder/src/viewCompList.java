@@ -1,5 +1,7 @@
 
 import java.sql.*;
+import java.util.ArrayList;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,10 +21,10 @@ public class viewCompList extends javax.swing.JFrame {
     public viewCompList() {
         initComponents();
     }
-    ResultSet components = null;
-    public viewCompList(ResultSet r) {
+    ArrayList<Object> compList = null;
+    public viewCompList(ArrayList<Object> obj) {
         initComponents();
-        components = r;
+        compList = obj;
     }
 
     /**
@@ -81,7 +83,7 @@ public class viewCompList extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+     */ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
