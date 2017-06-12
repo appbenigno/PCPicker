@@ -133,6 +133,3 @@ call add_keyboard('ckb002','Razer','Ornata Chroma',true,'Mech-Membrane',4790,'Ke
 
 call add_monitor('pmon001','Acer','Predator XB1','16:9','27','2560x1440','165',38500,'Monitor');
 
-
-
-
