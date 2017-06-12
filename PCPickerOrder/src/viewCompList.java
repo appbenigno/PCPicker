@@ -27,6 +27,7 @@ public class viewCompList extends javax.swing.JFrame {
     public viewCompList(ArrayList<pcpicker_webservicefordesktop.OrderParts> obj) {
         initComponents();
         compList = obj;
+        populateComponents();
     }
 
     /**
