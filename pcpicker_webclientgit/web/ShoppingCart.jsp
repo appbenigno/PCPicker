@@ -17,14 +17,21 @@
     <body>
          <div class ="banner">
             <div class ="logo">  
-                <a href="homepage1.jsp"><img src="img/logo.png" alt="logo" /></a>
+               <a href="${pageContext.request.contextPath}/Homepage"><img src="img/logo.png" alt="logo" /></a>
             </div>
             <div class="login_button">
                 <a href="<%=request.getContextPath()%>/Login">                   
-                    ${empty sessionScope.userid?'Log in or Register':sessionScope.userid}                    
+                    ${empty sessionScope.username?'Log in or Register':sessionScope.username}                    
                 </a>
             </div>
             
+            <div class ="cartsummary">
+                <a href="<%=request.getContextPath()%>/ShoppingCart">                   
+                    ${cartsummary}                    
+                </a>
+            </div>
+                
+                
             <div class ="menubar_banner">
                 <div class="dropdown fade">
                     <button class="dropbtn fade">Products ▽ </button>
@@ -56,43 +63,100 @@
                 
          
         <div class="content">       
-            <div class ="search_results_container_outer">
-                <div class="search_results_container_inner">                      
-                      
-                 
-                                      
-                        <form method="post" action = "Cart">
+            <div class ="cart_container">
+                <div class ="cart_banner">
+                    Shopping Cart
+                </div>
+                <form method="post" action = "ShoppingCart">
+
+                    <input type="hidden" name ="numListItems" value ="${fn:length(cart)}">
+                    
+                    <div class="labels">                            
+                        <div class="quantitylabel">
+                            Quantity
+                        </div>
+                        <div class="pricelabel">
+                            Item Price
+                        </div>
+                        <div class="subtotallabel">
+                            Subtotal
+                        </div>
+                    </div>
                             
-                            <input type="hidden" name ="numListItems" value ="${fn:length(cartList)}">
+                    <c:forEach items="${cart}" var="components_" varStatus ="loopCounter">
+                        <div class ="searchItemWrapper2">  
+                        
+                            
+                            
+                        <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
+                            <c:choose>
+                                <c:when test="${loopCounter2.index == 0}">
+                                    <div class="partid">
+                                        <input type ="hidden" name ="partid" value ="${details.value}">
+                                    </div>
+                                </c:when>
+                                <c:when test="${loopCounter2.index == 1}">
+                                    <div class="partname2">
+                                        ${details.value}
+                                    </div>
+                                </c:when>
+                                <c:when test="${loopCounter2.index == 2}">
+                                    <div class="partprice2">
+                                       ₱${details.value}
+                                    </div>
+                                </c:when>
+                                <c:when test="${loopCounter2.index == 3}">  
+                                    <div class="partquantity">
+                                        <input type="submit" value="<" name="submit${loopCounter.index}">
+                                        ${details.value}
+                                        <input type="submit" value=">" name="submit${loopCounter.index}">
+                                    </div>
+                                </c:when>
+                                <c:when test="${loopCounter2.index == 4}">                                        
+                                    <div class="partsubtotal">
+                                        ₱${details.value}                                        
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    ${details.value}
+                                </c:otherwise>
+                            </c:choose>
+                            <br>
+
+                        </c:forEach>
+                            <div class="partAdd2">
+                                <input type="submit" value="Remove from Cart" name="submit${loopCounter.index}">
                            
-                            <c:forEach items="${cartList}" var="components_" varStatus ="loopCounter">
-                                <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
-                                    <c:choose>
-                                        <c:when test="${loopCounter2.index == 0}">
-                                            compid: ${details.value}
-                                            <input type ="hidden" name ="partid" value ="${details.value}">
-                                        </c:when>
-                                        <c:when test="${loopCounter2.index == 1}">
-                                            partname: ${details.value}
-                                        </c:when>
-                                        <c:when test="${loopCounter2.index == 2}">
-                                            price: ${details.value}
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${details.value}
-                                        </c:otherwise>
-                                    </c:choose>
-                                   
-                                   
-                                </c:forEach>
-                                 <input type="submit" value="Remove from Cart" name="submit${loopCounter.index}">
-                               <br>
-                            </c:forEach>
-                             
-                            
-                    </form>  
-                </div>                    
-            </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+
+                    <div>
+                        <div class="totalprice">
+                            Total : ₱${totalPrice}
+                        </div>
+                    </div>
+
+                </form>  
+                <div class="buttons">
+                    <div class="checkoutbutton">
+                        <form method ="post" action ="Checkout">
+                            <input type="submit" value="Checkout" name="submit">
+                             ${message}<br>
+                        </form>
+                    </div>
+                       
+
+                    <div class ="continuebutton">    
+                        <form method ="get" action="SearchPage">
+                        <%-- todo get search filter parameters------------------------------------------------------------------------------------------------%>      
+                            <input type ="hidden" name="componentType" value="${componentType}">
+                            <input type="submit" name="submit" value="Continue shopping">
+                        </form>
+                    </div>
+                </div>
+            </div>                    
+           
         </div>
     </body>
 </html>

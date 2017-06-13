@@ -209,14 +209,20 @@
     <body>
         <div class ="banner">
             <div class ="logo">  
-                <a href="homepage1.jsp"><img src="img/logo.png" alt="logo" /></a>
+                <a href="${pageContext.request.contextPath}/Homepage"><img src="img/logo.png" alt="logo" /></a>
             </div>
             <div class="login_button">
                 <a href="<%=request.getContextPath()%>/Login">                   
-                    ${empty sessionScope.userid?'Log in or Register':sessionScope.userid}                    
+                    ${empty sessionScope.username?'Log in or Register':sessionScope.username}                    
                 </a>
             </div>
             
+            <div class ="cartsummary">
+                <a href="<%=request.getContextPath()%>/ShoppingCart">                   
+                    ${cartsummary}                    
+                </a>
+            </div>
+                
             <div class ="menubar_banner">
                 <div class="dropdown fade">
                     <button class="dropbtn fade">Products ▽ </button>
@@ -565,7 +571,7 @@
                               </div>                   
                             </div>
                         </c:if> 
-                        <c:if test="${componentType=='CPU'||componentType=='Processor' ||componentType=='Cooler' ||componentType=='GPU' }">
+                        <c:if test="${componentType=='CPU'||componentType=='Processor' ||componentType=='Cooler' }">
                             <div class ="search_filter_wrapper"> 
                               <div class ="search_filter_label">TDP</div>
                               <div class="search_slider" id="tdp_slider"></div>   
@@ -658,38 +664,48 @@
                     </div>
                     <div class="search_results_container_inner">                      
                       
-                        <form method="post" action = "Cart">
-                                <a href ="#" style="color:black;"></a>
-                                
-                                <input type="submit" name = "submit" value ="qwe" >                                
-                               <br>
-                        </form>
+                     
                                       
-                        <form method="post" action = "Cart">
-                            
+                        <form method="post" action = "ShoppingCart">
+                            <%-- todo get search filter parameters------------------------------------------------------------------------------------------------%>                            
+                            <input type="hidden" name ="componentType" value ="${componentType}">
                             <input type="hidden" name ="numListItems" value ="${fn:length(componentslist)}">
                             <c:forEach items="${componentslist}" var="components_" varStatus ="loopCounter">
-                                <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
-                                    <c:choose>
-                                        <c:when test="${loopCounter2.index == 0}">
-                                            compid: ${details.value}
-                                            <input type ="hidden" name ="partid" value ="${details.value}">
-                                        </c:when>
-                                        <c:when test="${loopCounter2.index == 1}">
-                                            partname: ${details.value}
-                                        </c:when>
-                                        <c:when test="${loopCounter2.index == 2}">
-                                            price: ${details.value}
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${details.value}
-                                        </c:otherwise>
-                                    </c:choose>
-                                   
-                                   
-                                </c:forEach>
-                                 <input type="submit" value="Add to Cart" name="submit${loopCounter.index}">
-                               <br>
+                                <div class ="searchItemWrapper">                                
+                                    <c:forEach items="${components_.value}" var="details" varStatus="loopCounter2">
+                                        <c:choose>
+                                            <c:when test="${loopCounter2.index == 3}">
+                                                <div class ="partimage">
+                                                    <img src="${details.value}"><%--${details.value}TODO PICTURE--%>
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${loopCounter2.index == 0}">
+                                                <div class ="partid">                                                  
+                                                    <input type ="hidden" name ="partid" value ="${details.value}">
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${loopCounter2.index == 1}">
+                                                <div class ="partname">
+                                                    <a href="#">${details.value}</a>
+                                                </div>
+                                            </c:when>
+                                           
+                                            <c:when test="${loopCounter2.index == 2}">
+                                                <div class ="partprice">
+                                                    ₱${details.value}
+                                                </div>
+                                            </c:when>                                            
+                                            <c:otherwise>
+                                                <div class="partdetails">
+                                                    ${details.value}
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <div class="partAdd">
+                                        <input type="submit" value="Add to Cart" name="submit${loopCounter.index}">
+                                    </div>
+                                </div> 
                             </c:forEach>
                             
                        </form>      

@@ -7,16 +7,22 @@ package pcpicker_webclient;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pcpicker.Order;
+import pcpicker.OrderParts;
+import pcpicker.Part;
+import pcpicker_webclient.nonservlet.WebMethods;
 
 /**
  *
  * @author admin
  */
-public class Logout extends HttpServlet {
+public class AccountPage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,13 +33,7 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getSession().setAttribute("userid",null);
-        request.getSession().setAttribute("username",null);
-        request.getSession().invalidate();
-        response.sendRedirect("homepage1.jsp");
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,7 +47,11 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ShoppingCart.getCartSummary(request);
+        int cust_id = Integer.parseInt((String)request.getSession().getAttribute("userid"));
+        List<Order> orders = WebMethods.getOrderList(cust_id);
+        request.setAttribute("orders", createOrderHashMap(orders));
+        request.getRequestDispatcher("accountpage.jsp").forward(request, response);
     }
 
     /**
@@ -61,8 +65,10 @@ public class Logout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
     }
+    
+    
 
     /**
      * Returns a short description of the servlet.
@@ -74,4 +80,31 @@ public class Logout extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    
+     private HashMap createOrderHashMap( List<Order> op)
+    {
+        HashMap map = new HashMap();
+        for(int i = 0; i < op.size(); i++)
+        {
+            Order order = op.get(i);
+            
+            HashMap items = new HashMap();
+            items.put("1",order.getOrderId());
+            items.put("2", order.getDateCreated());
+            items.put("3", order.getPaymentType());                    
+            List<OrderParts> ops = order.getItems();  
+            
+            int numItems = ops.size();
+            double totalPrice = 0;
+            for(OrderParts orderParts : ops)
+                totalPrice += orderParts.getQuantity() * orderParts.getPrice();
+            
+            items.put("4", numItems);
+            items.put("5", order.getDeliveryDate());
+            items.put("6",totalPrice);
+            map.put(Integer.toString(i), items);
+        }
+        return map;
+    }
 }

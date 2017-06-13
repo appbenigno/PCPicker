@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pcpicker_webclient.nonservlet.WebMethods;
 
 /**
  *
@@ -45,6 +46,8 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ShoppingCart.getCartSummary(request);
+        SessionMessage.getMessage(request);
         if (( request.getSession().getAttribute("userid") == null) || ( request.getSession().getAttribute("userid") == "")) 
         {
             //not logged in - go to login page
@@ -53,8 +56,9 @@ public class Login extends HttpServlet {
         else
         {
             //todo log in - go to account page 
-           request.setAttribute("user", request.getSession().getAttribute("userid"));
-           request.getRequestDispatcher("accountpage.jsp").forward(request, response);
+         
+           response.sendRedirect(request.getContextPath()+"/AccountPage");
+           //response.sendRedirect(request.getParameter("from"));
         }
         
     }
@@ -75,12 +79,21 @@ public class Login extends HttpServlet {
         String password = (String) request.getParameter("password");
         
         //todo login
-       
+        String custid = WebMethods.login(username, password);
+        if(custid == null || custid.equals(""))
+        {
+            request.setAttribute("message", "Incorrect username or password");
+            doGet(request,response);
+        }
+        else
+        {
+            request.getSession().setAttribute("username",username);
+            request.getSession().setAttribute("userid",custid);
+            response.sendRedirect(request.getContextPath()+"/Homepage");         
+        }
         
        
-        request.getSession().setAttribute("userid",username);
-        response.sendRedirect("homepage1.jsp");
-        
+      
     }
     
    

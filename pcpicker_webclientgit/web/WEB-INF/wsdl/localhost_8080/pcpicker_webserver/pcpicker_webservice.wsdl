@@ -4,59 +4,35 @@
 <xsd:import namespace="http://pcpicker/" schemaLocation="http://localhost:8080/pcpicker_webserver/pcpicker_webservice?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="addOrder">
+<part name="parameters" element="tns:addOrder"/>
+</message>
+<message name="addOrderResponse">
+<part name="parameters" element="tns:addOrderResponse"/>
+</message>
 <message name="getPart">
 <part name="parameters" element="tns:getPart"/>
 </message>
 <message name="getPartResponse">
 <part name="parameters" element="tns:getPartResponse"/>
 </message>
-<message name="getPowerSupplyList">
-<part name="parameters" element="tns:getPowerSupplyList"/>
+<message name="login">
+<part name="parameters" element="tns:login"/>
 </message>
-<message name="getPowerSupplyListResponse">
-<part name="parameters" element="tns:getPowerSupplyListResponse"/>
+<message name="loginResponse">
+<part name="parameters" element="tns:loginResponse"/>
 </message>
-<message name="getMotherboardList">
-<part name="parameters" element="tns:getMotherboardList"/>
+<message name="addCustomer">
+<part name="parameters" element="tns:addCustomer"/>
 </message>
-<message name="getMotherboardListResponse">
-<part name="parameters" element="tns:getMotherboardListResponse"/>
-</message>
-<message name="getGPUMemoryTypes">
-<part name="parameters" element="tns:getGPUMemoryTypes"/>
-</message>
-<message name="getGPUMemoryTypesResponse">
-<part name="parameters" element="tns:getGPUMemoryTypesResponse"/>
-</message>
-<message name="getMaxResolutions">
-<part name="parameters" element="tns:getMaxResolutions"/>
-</message>
-<message name="getMaxResolutionsResponse">
-<part name="parameters" element="tns:getMaxResolutionsResponse"/>
-</message>
-<message name="getOrder_componentList">
-<part name="parameters" element="tns:getOrder_componentList"/>
-</message>
-<message name="getOrder_componentListResponse">
-<part name="parameters" element="tns:getOrder_componentListResponse"/>
-</message>
-<message name="getGraphicsCardList">
-<part name="parameters" element="tns:getGraphicsCardList"/>
-</message>
-<message name="getGraphicsCardListResponse">
-<part name="parameters" element="tns:getGraphicsCardListResponse"/>
+<message name="addCustomerResponse">
+<part name="parameters" element="tns:addCustomerResponse"/>
 </message>
 <message name="getMemoryList">
 <part name="parameters" element="tns:getMemoryList"/>
 </message>
 <message name="getMemoryListResponse">
 <part name="parameters" element="tns:getMemoryListResponse"/>
-</message>
-<message name="getDeliveryList">
-<part name="parameters" element="tns:getDeliveryList"/>
-</message>
-<message name="getDeliveryListResponse">
-<part name="parameters" element="tns:getDeliveryListResponse"/>
 </message>
 <message name="getStorageList">
 <part name="parameters" element="tns:getStorageList"/>
@@ -70,44 +46,17 @@
 <message name="getMouseListResponse">
 <part name="parameters" element="tns:getMouseListResponse"/>
 </message>
-<message name="addMemory">
-<part name="parameters" element="tns:addMemory"/>
-</message>
-<message name="getMemoryTypes">
-<part name="parameters" element="tns:getMemoryTypes"/>
-</message>
-<message name="getMemoryTypesResponse">
-<part name="parameters" element="tns:getMemoryTypesResponse"/>
-</message>
-<message name="addPowerSupply">
-<part name="parameters" element="tns:addPowerSupply"/>
-</message>
-<message name="addCPU">
-<part name="parameters" element="tns:addCPU"/>
-</message>
-<message name="getKeyboardList">
-<part name="parameters" element="tns:getKeyboardList"/>
-</message>
-<message name="getKeyboardListResponse">
-<part name="parameters" element="tns:getKeyboardListResponse"/>
-</message>
-<message name="getBranchesList">
-<part name="parameters" element="tns:getBranchesList"/>
-</message>
-<message name="getBranchesListResponse">
-<part name="parameters" element="tns:getBranchesListResponse"/>
-</message>
 <message name="getOrderList">
 <part name="parameters" element="tns:getOrderList"/>
 </message>
 <message name="getOrderListResponse">
 <part name="parameters" element="tns:getOrderListResponse"/>
 </message>
-<message name="getInventoryList">
-<part name="parameters" element="tns:getInventoryList"/>
+<message name="getMemoryTypes">
+<part name="parameters" element="tns:getMemoryTypes"/>
 </message>
-<message name="getInventoryListResponse">
-<part name="parameters" element="tns:getInventoryListResponse"/>
+<message name="getMemoryTypesResponse">
+<part name="parameters" element="tns:getMemoryTypesResponse"/>
 </message>
 <message name="getProcessorList">
 <part name="parameters" element="tns:getProcessorList"/>
@@ -127,14 +76,11 @@
 <message name="getCoolerListResponse">
 <part name="parameters" element="tns:getCoolerListResponse"/>
 </message>
-<message name="addGPU">
-<part name="parameters" element="tns:addGPU"/>
+<message name="getManufacturers">
+<part name="parameters" element="tns:getManufacturers"/>
 </message>
-<message name="getCustomerList">
-<part name="parameters" element="tns:getCustomerList"/>
-</message>
-<message name="getCustomerListResponse">
-<part name="parameters" element="tns:getCustomerListResponse"/>
+<message name="getManufacturersResponse">
+<part name="parameters" element="tns:getManufacturersResponse"/>
 </message>
 <message name="getImageList">
 <part name="parameters" element="tns:getImageList"/>
@@ -142,48 +88,68 @@
 <message name="getImageListResponse">
 <part name="parameters" element="tns:getImageListResponse"/>
 </message>
-<message name="getManufacturers">
-<part name="parameters" element="tns:getManufacturers"/>
+<message name="getKeyboardList">
+<part name="parameters" element="tns:getKeyboardList"/>
 </message>
-<message name="getManufacturersResponse">
-<part name="parameters" element="tns:getManufacturersResponse"/>
+<message name="getKeyboardListResponse">
+<part name="parameters" element="tns:getKeyboardListResponse"/>
+</message>
+<message name="getPowerSupplyList">
+<part name="parameters" element="tns:getPowerSupplyList"/>
+</message>
+<message name="getPowerSupplyListResponse">
+<part name="parameters" element="tns:getPowerSupplyListResponse"/>
+</message>
+<message name="getGPUMemoryTypes">
+<part name="parameters" element="tns:getGPUMemoryTypes"/>
+</message>
+<message name="getGPUMemoryTypesResponse">
+<part name="parameters" element="tns:getGPUMemoryTypesResponse"/>
+</message>
+<message name="getGraphicsCardList">
+<part name="parameters" element="tns:getGraphicsCardList"/>
+</message>
+<message name="getGraphicsCardListResponse">
+<part name="parameters" element="tns:getGraphicsCardListResponse"/>
+</message>
+<message name="getMotherboardList">
+<part name="parameters" element="tns:getMotherboardList"/>
+</message>
+<message name="getMotherboardListResponse">
+<part name="parameters" element="tns:getMotherboardListResponse"/>
+</message>
+<message name="getMaxResolutions">
+<part name="parameters" element="tns:getMaxResolutions"/>
+</message>
+<message name="getMaxResolutionsResponse">
+<part name="parameters" element="tns:getMaxResolutionsResponse"/>
+</message>
+<message name="cancelOrder">
+<part name="parameters" element="tns:cancelOrder"/>
+</message>
+<message name="cancelOrderResponse">
+<part name="parameters" element="tns:cancelOrderResponse"/>
 </message>
 <portType name="Pcpicker_webservice">
+<operation name="addOrder">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/addOrderRequest" message="tns:addOrder"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/addOrderResponse" message="tns:addOrderResponse"/>
+</operation>
 <operation name="getPart">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getPartRequest" message="tns:getPart"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getPartResponse" message="tns:getPartResponse"/>
 </operation>
-<operation name="getPowerSupplyList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getPowerSupplyListRequest" message="tns:getPowerSupplyList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getPowerSupplyListResponse" message="tns:getPowerSupplyListResponse"/>
+<operation name="login">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/loginRequest" message="tns:login"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/loginResponse" message="tns:loginResponse"/>
 </operation>
-<operation name="getMotherboardList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMotherboardListRequest" message="tns:getMotherboardList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMotherboardListResponse" message="tns:getMotherboardListResponse"/>
-</operation>
-<operation name="getGPUMemoryTypes">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getGPUMemoryTypesRequest" message="tns:getGPUMemoryTypes"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getGPUMemoryTypesResponse" message="tns:getGPUMemoryTypesResponse"/>
-</operation>
-<operation name="getMaxResolutions">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMaxResolutionsRequest" message="tns:getMaxResolutions"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMaxResolutionsResponse" message="tns:getMaxResolutionsResponse"/>
-</operation>
-<operation name="getOrder_componentList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getOrder_componentListRequest" message="tns:getOrder_componentList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getOrder_componentListResponse" message="tns:getOrder_componentListResponse"/>
-</operation>
-<operation name="getGraphicsCardList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getGraphicsCardListRequest" message="tns:getGraphicsCardList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getGraphicsCardListResponse" message="tns:getGraphicsCardListResponse"/>
+<operation name="addCustomer">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/addCustomerRequest" message="tns:addCustomer"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/addCustomerResponse" message="tns:addCustomerResponse"/>
 </operation>
 <operation name="getMemoryList">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryListRequest" message="tns:getMemoryList"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryListResponse" message="tns:getMemoryListResponse"/>
-</operation>
-<operation name="getDeliveryList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getDeliveryListRequest" message="tns:getDeliveryList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getDeliveryListResponse" message="tns:getDeliveryListResponse"/>
 </operation>
 <operation name="getStorageList">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getStorageListRequest" message="tns:getStorageList"/>
@@ -193,34 +159,13 @@
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getMouseListRequest" message="tns:getMouseList"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getMouseListResponse" message="tns:getMouseListResponse"/>
 </operation>
-<operation name="addMemory">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/addMemory" message="tns:addMemory"/>
-</operation>
-<operation name="getMemoryTypes">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryTypesRequest" message="tns:getMemoryTypes"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryTypesResponse" message="tns:getMemoryTypesResponse"/>
-</operation>
-<operation name="addPowerSupply">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/addPowerSupply" message="tns:addPowerSupply"/>
-</operation>
-<operation name="addCPU">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/addCPU" message="tns:addCPU"/>
-</operation>
-<operation name="getKeyboardList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getKeyboardListRequest" message="tns:getKeyboardList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getKeyboardListResponse" message="tns:getKeyboardListResponse"/>
-</operation>
-<operation name="getBranchesList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getBranchesListRequest" message="tns:getBranchesList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getBranchesListResponse" message="tns:getBranchesListResponse"/>
-</operation>
 <operation name="getOrderList">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getOrderListRequest" message="tns:getOrderList"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getOrderListResponse" message="tns:getOrderListResponse"/>
 </operation>
-<operation name="getInventoryList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getInventoryListRequest" message="tns:getInventoryList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getInventoryListResponse" message="tns:getInventoryListResponse"/>
+<operation name="getMemoryTypes">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryTypesRequest" message="tns:getMemoryTypes"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMemoryTypesResponse" message="tns:getMemoryTypesResponse"/>
 </operation>
 <operation name="getProcessorList">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getProcessorListRequest" message="tns:getProcessorList"/>
@@ -234,24 +179,54 @@
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getCoolerListRequest" message="tns:getCoolerList"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getCoolerListResponse" message="tns:getCoolerListResponse"/>
 </operation>
-<operation name="addGPU">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/addGPU" message="tns:addGPU"/>
-</operation>
-<operation name="getCustomerList">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getCustomerListRequest" message="tns:getCustomerList"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getCustomerListResponse" message="tns:getCustomerListResponse"/>
+<operation name="getManufacturers">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getManufacturersRequest" message="tns:getManufacturers"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getManufacturersResponse" message="tns:getManufacturersResponse"/>
 </operation>
 <operation name="getImageList">
 <input wsam:Action="http://pcpicker/Pcpicker_webservice/getImageListRequest" message="tns:getImageList"/>
 <output wsam:Action="http://pcpicker/Pcpicker_webservice/getImageListResponse" message="tns:getImageListResponse"/>
 </operation>
-<operation name="getManufacturers">
-<input wsam:Action="http://pcpicker/Pcpicker_webservice/getManufacturersRequest" message="tns:getManufacturers"/>
-<output wsam:Action="http://pcpicker/Pcpicker_webservice/getManufacturersResponse" message="tns:getManufacturersResponse"/>
+<operation name="getKeyboardList">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getKeyboardListRequest" message="tns:getKeyboardList"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getKeyboardListResponse" message="tns:getKeyboardListResponse"/>
+</operation>
+<operation name="getPowerSupplyList">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getPowerSupplyListRequest" message="tns:getPowerSupplyList"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getPowerSupplyListResponse" message="tns:getPowerSupplyListResponse"/>
+</operation>
+<operation name="getGPUMemoryTypes">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getGPUMemoryTypesRequest" message="tns:getGPUMemoryTypes"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getGPUMemoryTypesResponse" message="tns:getGPUMemoryTypesResponse"/>
+</operation>
+<operation name="getGraphicsCardList">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getGraphicsCardListRequest" message="tns:getGraphicsCardList"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getGraphicsCardListResponse" message="tns:getGraphicsCardListResponse"/>
+</operation>
+<operation name="getMotherboardList">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMotherboardListRequest" message="tns:getMotherboardList"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMotherboardListResponse" message="tns:getMotherboardListResponse"/>
+</operation>
+<operation name="getMaxResolutions">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/getMaxResolutionsRequest" message="tns:getMaxResolutions"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/getMaxResolutionsResponse" message="tns:getMaxResolutionsResponse"/>
+</operation>
+<operation name="cancelOrder">
+<input wsam:Action="http://pcpicker/Pcpicker_webservice/cancelOrderRequest" message="tns:cancelOrder"/>
+<output wsam:Action="http://pcpicker/Pcpicker_webservice/cancelOrderResponse" message="tns:cancelOrderResponse"/>
 </operation>
 </portType>
 <binding name="Pcpicker_webservicePortBinding" type="tns:Pcpicker_webservice">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="addOrder">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getPart">
 <soap:operation soapAction=""/>
 <input>
@@ -261,7 +236,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getPowerSupplyList">
+<operation name="login">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -270,43 +245,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getMotherboardList">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getGPUMemoryTypes">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getMaxResolutions">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getOrder_componentList">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getGraphicsCardList">
+<operation name="addCustomer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -316,15 +255,6 @@
 </output>
 </operation>
 <operation name="getMemoryList">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDeliveryList">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -351,51 +281,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="addMemory">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="getMemoryTypes">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="addPowerSupply">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="addCPU">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="getKeyboardList">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getBranchesList">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getOrderList">
 <soap:operation soapAction=""/>
 <input>
@@ -405,7 +290,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getInventoryList">
+<operation name="getMemoryTypes">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -441,13 +326,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="addGPU">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="getCustomerList">
+<operation name="getManufacturers">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -465,7 +344,61 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getManufacturers">
+<operation name="getKeyboardList">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getPowerSupplyList">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getGPUMemoryTypes">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getGraphicsCardList">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getMotherboardList">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getMaxResolutions">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="cancelOrder">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

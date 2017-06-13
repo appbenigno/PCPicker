@@ -11,29 +11,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pcpicker_webclient.nonservlet.Cart;
+import pcpicker_webclient.nonservlet.WebMethods;
 
 /**
  *
  * @author admin
  */
-public class Logout extends HttpServlet {
+public class Checkout extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getSession().setAttribute("userid",null);
-        request.getSession().setAttribute("username",null);
-        request.getSession().invalidate();
-        response.sendRedirect("homepage1.jsp");
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,7 +34,7 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ShoppingCart.getCartSummary(request);
     }
 
     /**
@@ -61,7 +48,27 @@ public class Logout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cart cart = (Cart)request.getSession().getAttribute("cart");
+       
+        if(cart == null || cart.getList().size() == 0)
+        {
+            SessionMessage.setMessage(request, "No items in cart");
+            response.sendRedirect(request.getContextPath()+"/ShoppingCart");     
+        }
+        else if (( request.getSession().getAttribute("userid") == null) || ( request.getSession().getAttribute("userid") == "")) 
+        {
+            //not logged in   
+            SessionMessage.setMessage(request, "Please login before Checking out");
+            response.sendRedirect(request.getContextPath()+"/ShoppingCart");           
+        }
+        else
+        {
+            int userid = Integer.parseInt((String)request.getSession().getAttribute("userid"));  
+            int orderId = WebMethods.addOrder(userid, cart.getPartList(), cart.getQuantityList(), "");
+            request.getSession().setAttribute("cart", null);           
+            SessionMessage.setInt(request,orderId);
+            response.sendRedirect(request.getContextPath()+"/OrderPage");
+        }
     }
 
     /**

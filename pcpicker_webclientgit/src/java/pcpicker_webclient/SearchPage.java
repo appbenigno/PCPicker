@@ -5,6 +5,7 @@
  */
 package pcpicker_webclient;
 
+import pcpicker_webclient.nonservlet.WebMethods;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +39,17 @@ public class SearchPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String componentType = (String) request.getParameter("test");
-        if(componentType==null||componentType.equals(""))
-            componentType = (String) request.getParameter("componentType");
+        String componentType = getComponentType(request);
+        ShoppingCart.getCartSummary(request);
         
-        
-        //todo - on filterget get value max min
+        filter(request,componentType);
+       
+        request.getRequestDispatcher("searchpage.jsp").forward(request, response);
+    }
+    
+    private void filter(HttpServletRequest request, String componentType)
+    {
+         //todo - on filterget get value max min
         int setMaxPrice = getMaxPrice(componentType);
         int setMinPrice = 0;       
         request.setAttribute("setMaxPrice",setMaxPrice);
@@ -118,13 +124,20 @@ public class SearchPage extends HttpServlet {
         request.setAttribute("memoryCapacities",getMemoryCapacities());
         request.setAttribute("formFactor",getFormFactor(componentType));
         
-        request.setAttribute("componentslist",getList(componentType));
-       
-        request.getRequestDispatcher("searchpage.jsp").forward(request, response);
+        request.setAttribute("componentslist",getList(componentType,request));
     }
     
+    private String getComponentType(HttpServletRequest request)
+    {
+        String componentType = (String) request.getParameter("test");
+        if(componentType==null||componentType.equals(""))
+            componentType = (String) request.getParameter("componentType");
+        if(componentType == null || componentType.equals(""))
+            componentType = "Processor";
+        return componentType;
+    }
     
-    private HashMap getList(String compType)
+    private HashMap getList(String compType, HttpServletRequest request)
     {
         
         HashMap manuf = new HashMap();
@@ -136,11 +149,15 @@ public class SearchPage extends HttpServlet {
             for(int i = 0; i < components.size();i++)
             {
                 HashMap items = new HashMap();
-          
+                Processor p = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId() + " " + components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
-                
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("5", p.getCoreClock() + " GHz");
+                items.put("6",p.getCoreNum()+"C/"+p.getThreadNum()+"T");
+                items.put("7", "TDP: "+p.getTdp() + " W");
+                items.put("8", p.getSocket());
              //  String corethreads = components.ge
                 
               //  items.put("4",components.get(i).g);
@@ -156,11 +173,13 @@ public class SearchPage extends HttpServlet {
             for(int i = 0; i < components.size();i++)
             {
                 HashMap items = new HashMap();
-             
+                GraphicsCard g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
-                
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getMemCapacity()+"GB "+g.getMemDdr());
+                items.put("5",g.getCoreClock()+" MHz");
                              
                 
                 manuf.put(Integer.toString(i), items);
@@ -173,11 +192,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Monitor g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
-                
-                             
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getRefreshRate()+" Hz ");
+                items.put("5",g.getMaxResolution() + "");
+                items.put("7",g.getAspectRatio() + " aspect ratio");          
                 
                 manuf.put(Integer.toString(i), items);
             }
@@ -189,9 +211,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Memory g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getMemCapacity()+" GB ");
+                items.put("5",g.getMemClock() + " MHz");
+                items.put("7",g.getMemDdr().toUpperCase());
                 
                              
                 
@@ -205,10 +232,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Mouse g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
-                
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getConnection());
+                items.put("5",g.getDpi()+" dpi");
+              
                              
                 
                 manuf.put(Integer.toString(i), items);
@@ -221,9 +252,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Motherboard g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getFormFactor());
+                items.put("5",g.getSocket());
+                
                 
                              
                 
@@ -237,9 +273,16 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Cooler g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getRatedTdp()+ " W");
+                items.put("5",g.getSupportedSockets());
+                Boolean liquidCooled = g.isLiquidCooling();
+                if(liquidCooled)
+                    items.put("7","Liquid Cooling System");
                 
                              
                 
@@ -253,11 +296,19 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Storage g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("5",g.getInterface());
+                int cap = g.getCapacity();
+                if(cap>20)
+                    items.put("6",cap + " MB");
+                else
+                    items.put("6", cap + " TB");
                 
-                             
+                items.put("7",g.getType());
                 
                 manuf.put(Integer.toString(i), items);
             }
@@ -269,10 +320,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                PowerSupply g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
-                
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("6",g.getFormFactor());
+                items.put("5",g.getWattage()+" W");
+                items.put("7",g.getRating());
                              
                 
                 manuf.put(Integer.toString(i), items);
@@ -285,9 +340,14 @@ public class SearchPage extends HttpServlet {
             {
                 HashMap items = new HashMap();
              
+                Keyboard g = components.get(i);
                 items.put("1",components.get(i).getPartId());
-                items.put("2",components.get(i).getPartName());
+                items.put("2",components.get(i).getPartId()+" " +components.get(i).getPartName());
                 items.put("3",Double.toString(components.get(i).getPartPrice()));
+                items.put("4",request.getContextPath() + "/img/testimage.png");
+                items.put("5",g.getType());
+                if(g.isBacklit())
+                    items.put("6","RGB");
                 
                              
                 

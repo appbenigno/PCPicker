@@ -172,6 +172,16 @@ html, body{
     top:1em;
     right:8.5em;
 }
+.login_button input[type=submit]{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.login_button input[type=submit]:hover{
+    text-decoration: underline;    
+    color: white;
+    font-weight: bold;
+}
 .login_button a{
     text-decoration: none;
     color: white;
@@ -182,7 +192,21 @@ html, body{
     color: white;
     font-weight: bold;
 }
-
+.cartsummary{
+    position:absolute;
+    top:1em;
+    right:20.5em;
+}
+.cartsummary a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.cartsummary a:hover{
+    text-decoration: underline;    
+    color: white;
+    font-weight: bold;
+}
 
 
 .content{
@@ -350,6 +374,15 @@ html, body{
     width:80%;
     
 }
+.orderbanner{
+    font-family: "Segoe UI", sans-serif;
+    font-size: 3em;
+    font-weight: lighter;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    
+}
 .radio_button_label{
     position:relative;
     display:inline-block;
@@ -445,6 +478,293 @@ html, body{
     margin: 5px;
     color:white;
 }
+.searchItemWrapper{
+    
+    margin:5px;
+    padding:5px;
+    position:relative;
+    border-bottom: 1px solid #ccc;
+    color:black;
+    font-weight: 300;
+    min-height: 7em;
+}
+.orderpagewrapper{
+
+}
+.searchitem input[type=submit]{
+    font-family: "Segoe UI", sans-serif;
+    border: 1px solid #ccc;
+    padding : 12px;
+    font-weight: lighter;
+    font-size: 1.3em;
+    display:inline-block;
+}
+.searchitem input[type=submit]:hover{
+    
+}
+.orderlabel{
+    font-family: "Segoe UI", sans-serif;
+    font-weight: normal;
+    position:relative;
+    display: inline-block;
+    padding : 5px;
+    font-size: 1.5em;
+    margin-left: 5em;
+    
+}
+.olabel{
+    font-weight:lighter;
+     position:relative;
+    display: inline-block;
+     margin-right: 10em;
+}
+.searchItemWrapper2{
+    position:relative;
+    margin:5px;
+    padding:5px;
+    position:relative;
+    border-bottom: 1px solid #ccc;
+    color:black;
+    font-weight: 300;
+    min-height: 1.5em;
+    
+}
+.partimage{
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    margin:5px;
+    width:10em;
+    display:inline-block;
+}
+.partimage img{
+    max-height: 5em;
+    max-width: 5em;
+    display:inline-block;
+    
+}
+.partid{
+    left:4.5em;
+    top:0.2em;
+    position:relative;
+    display:inline-block;
+    margin:5px;
+    font-size: 1.5em;
+    color: #051C38;
+    margin-right: 10px;
+}
+
+.partname{
+    left:5em;
+    top:0.2em;
+    position:relative;
+    display:inline-block;
+    margin:5px;
+    font-weight: normal;
+}
+.partname2{
+   
+    position:relative;
+    display:inline-block;
+    
+    font-weight: normal;
+    font-size:1.5em;
+}
+.partname a{
+    font-size: 1.2em;
+    color: #051C38;
+    text-decoration: none;
+    position:relative;
+    display:inline-block;
+}
+.partname a:hover{
+    text-decoration: underline;
+    transition:all 0.2s ease;
+    
+}
+.partprice{
+    position: absolute;
+    right: 2em;
+    top:0.4em;
+    margin:5px;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+.partprice2{
+    position:absolute;
+    display:inline-block;
+    right:30em;
+    top:1em;
+    margin:5px;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+.partprice3{
+    position:absolute;
+    display:inline-block;
+    right:30em;
+    top:1em;
+    margin:5px;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+.partAdd{
+    position: absolute;
+    right: 2em;
+    top: 2em;
+    margin:5px;
+    
+}
+.partAdd2{
+    position: absolute;
+    right: 2em;
+    top: 2em;
+    margin:5px;
+    
+}
+.partquantity{
+    position: absolute;   
+    right:19.4em;
+    top:0.7em;
+    margin:5px;
+    font-size: 1.2em;
+    font-weight: 400;
+    display: inline-block;
+}
+
+.partquantity input[type=submit]{
+    
+    padding-bottom:4px;
+    padding-right: 8px;
+    padding-left:8px;
+    font-weight: lighter;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1em;   
+    color:white;
+    transition:color 0.5s ease;
+     background-color: #226666;
+}
+.partsubtotal{
+    position: absolute;    
+    margin:5px;
+    right:3em;
+    top:0.4em;
+    font-size: 1.2em;
+    font-weight: 400;
+    display: inline-block;
+}
+.partquantity input[type=submit]:hover{
+    transition:color 0.5s ease;
+    background-color: #003333;
+    color:white;
+}
+.totalprice{
+    border-bottom: 1px solid #ccc;
+    text-align: right;
+    margin-right: 2em;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1.5em;
+}
+.checkoutbutton{
+    position: absolute;
+    display: inline-table;
+    right: 0.5em;
+}
+.continuebutton{
+    position: relative;
+    display: inline-table;
+    left: 0.5em;
+    
+}
+.labels{
+    position:relative;
+    display: inline-block;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 300;
+    font-size:1.2em;
+    top:0.1em;
+    border-bottom: 1px solid #ccc;
+    width:100%;
+    min-height: 1.5em;
+}
+.pricelabel{
+    position:absolute;
+    display:inline-block;
+    right: 30em;
+    
+}
+.quantitylabel{
+    position:absolute;
+    display:inline-block;
+    right:20em;
+    
+}
+.subtotallabel{
+    position:absolute;
+    display:inline-block;
+    right:4em;
+}
+.partAdd2 input[type=submit]{
+    border: 1px solid #ccc;
+    padding:8px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    font-weight: lighter;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1.1em;
+   
+    margin: 5px;
+    color:white;
+     background-color: #226666;
+}
+.buttons input[type=submit]{
+    border: 1px solid #ccc;
+    padding:15px;
+    font-weight: lighter;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1em;
+   
+    margin: 5px;
+    color:white;
+     background-color: #226666;
+}
+.buttons input[type=submit]:hover{
+    transition:color 0.5s ease;
+    background-color: #003333;
+    margin: 5px;
+    color:white;
+}
+.partAdd2 input[type=submit]:hover{
+    transition:color 0.5s ease;
+    background-color: #003333;
+    margin: 5px;
+    color:white;
+}
+.partAdd input[type=submit]{
+    border: 1px solid #ccc;
+    padding:10px;
+  
+    font-weight: lighter;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1.1em;
+   
+    margin: 5px;
+    color:white;
+    
+     background-color: #226666;
+}
+.partAdd input[type=submit]:hover{
+    transition:all 0.5s ease;
+    background-color: #003333;
+    margin: 5px;
+    color:white;
+}
+.partdetails{
+    left:7em;
+    position: relative;
+    margin:5px;
+    
+}
 /*-----------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------*/
@@ -525,7 +845,15 @@ html, body{
     right: 0px;
     top: 15em;
 }
-
+.cart_banner{
+    font-family: "Segoe UI", sans-serif;
+    font-size: 3em;
+    font-weight: lighter;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    
+}
 
 
 
@@ -603,7 +931,10 @@ html, body{
     cursor: pointer;
     margin:1em;
 }
-
+.message{
+    color:white;
+    text-align: center;
+}
 .loginContainer  input[type=submit]:hover {
     background-color: #0D4D4D;
     transition:all 0.2s ease;
@@ -630,6 +961,17 @@ html, body{
     width: 8em;
 }
 .create_account_container input[type=text]{
+    vertical-align: top;
+    width: 16em;
+    padding: 7px 15px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: white;  
+  
+}
+.create_account_container input[type=number]{
     vertical-align: top;
     width: 16em;
     padding: 7px 15px;

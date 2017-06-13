@@ -1,13 +1,15 @@
 <%-- 
-    Document   : loginpage
-    Created on : 06 4, 17, 1:02:04 PM
+    Document   : orderpage
+    Created on : 06 11, 17, 12:51:19 PM
     Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
-    <head>
+   <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/test.css">
@@ -55,34 +57,32 @@
         </div>
         
         <div class="content">
-            <div class ="loginContainer">
-                <form  action="Login" method ="post">
-                    <div class ="label">
-                        Email
-                    </div>
-                    <div>
-                        <input type ="email" name="username" placeholder="email address"required >
-                    </div>
-                    <div class ="label">
-                        Password
-                    </div>
-                    <div>
-                        <input type="password" name="password" placeholder="password"required>
-                    </div>
-                    <input type="submit" value="Login" name="button">    
-                    <input type="hidden" name="from" value="${from}">
-                </form>
-                
-                <input type="submit" value="Create Account" name="button" onclick=location.href='${pageContext.request.contextPath}/CreateAccount;'>
-                <div class = "message">
-                    ${message}
-                </div>
-                
-            </div>
             
-            
-            
-            
+            Order id : ${orderid}<br>
+            Total Price: ${totalprice}<br>
+            <input type="hidden" name ="numOrders" value ="${fn:length(orderslist)}">
+            <c:forEach items="${orderitems}" var="order" varStatus ="loopCounter">                
+                <c:forEach items="${order.value}" var="details" varStatus="loopCounter2">
+                    <c:choose>
+                        <c:when test="${loopCounter2.index == 0 }">
+                            partid :${details.value}
+                            <input type ="hidden" name ="partid" value ="${details.value}">
+                        </c:when>
+                        <c:when test="${loopCounter2.index == 1}">
+                            quantity:    ${details.value}
+                        </c:when>
+                        <c:when test="${loopCounter2.index == 2}">
+                            partname ${details.value}
+                        </c:when>
+                        <c:otherwise>
+                            part price: ${details.value}
+                        </c:otherwise>
+                    </c:choose>
+                            <br>
+
+                </c:forEach>
+                            <br>
+            </c:forEach>
             
             
             
