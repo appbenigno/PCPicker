@@ -169,6 +169,7 @@ create table order_
     deliveryDate date default null,
     cancel bool default false,
     cancelDate Date default null,
+    deliveryAddress varchar(255),
     primary key (order_id),
     foreign key (cust_id) references customer(cust_id),
     foreign key (acceptedBy) references branch(branch_id)
@@ -662,9 +663,14 @@ END//
 
 
 delimiter //
-create procedure addOrder(cust_id_ int, payment_type varchar(20))
+create procedure addOrder(
+cust_id_ int, 
+payment_type varchar(20),
+deliveryAddress_ varchar(255)
+)
 BEGIN
-    insert into order_(cust_id,date_created,payment_type) values(cust_id_,NOW(), payment_type);
+    insert into order_(cust_id,date_created,payment_type,deliveryAddress)
+    values(cust_id_,NOW(), payment_type,deliveryAddress_);
     SELECT LAST_INSERT_ID() FROM order_;
 END//
 
@@ -675,7 +681,7 @@ BEGIN
 END//
 
 
-
+call getActiveOrders(1)
 
 
 
@@ -834,7 +840,6 @@ delimiter ;
 
 insert into branch values(null, 'Bulacan', 'B21 L8 Francisco Homes III', 3023);
 
-
 call add_processor('ccpu123','Intel','Celeron G1840',2.8,2,2,'LGA 1150',53,2090,'Processor');
 call addImage('ccpu123','http://fast.ulmart.ru/p/mid/76/7619/761908.jpg');
 
@@ -850,92 +855,84 @@ call addImage('ccpu126','http://ecx.images-amazon.com/images/I/51hIU3KbC8L._SY35
 call add_processor('ccpu127','Intel','Core i7-6700k',4.0,4,4,'LGA 1151',91,16940,'Processor');
 call addImage('ccpu127','https://images-na.ssl-images-amazon.com/images/I/41xuuE5uO8L.jpg');
 
-
-
 call add_memory('cmem001','Kingston','HyperX Fury',8,'ddr3',1866,3190,'Memory');
-call addImage('','');
+call addImage('cmem001','https://media.kingston.com/hyperx/features/hx-features-memory-fury-ddr3-black.jpg');
 
 call add_memory('cmem002','Gskill','RipjawsX',16,'ddr3',2400,6500,'Memory');
-call addImage('','');
+call addImage('cmem002','https://images-na.ssl-images-amazon.com/images/I/51M2oRgTQVL._SX300_.jpg');
 
 call add_memory('cmem003','Corsair','Vengeance',16,'ddr4',2666,6750,'Memory');
-call addImage('','');
+call addImage('cmem003','https://images-na.ssl-images-amazon.com/images/I/51MXy7QSXuL.jpg');
 
 call add_memory('cmem004','Crucial','Ballistix Elite',4,'ddr4',2666,1850,'Memory');
-call addImage('','');
+call addImage('cmem004','http://www.crucial.com/wcsstore/CrucialSAS/images/resources/medium/package/crucial-ballistix-sport-lt-ddr4-dynamic-white.png');
 
 call add_memory('cmem005','Gskill','Trident Z RGB',16,'ddr4',3000,7540,'Memory');
-call addImage('','');
-
-
+call addImage('cmem005','https://images10.newegg.com/NeweggImage/ProductImage/20-232-476-S01.jpg');
 
 call add_powersupply('cpsu001','Corsair','VS450',450,'80+','Non-modular',1690,'Power Supply');
-call addImage('','');
+call addImage('cpsu001','http://www.corsair.com/en-us/~/media/BBBA3C9CA789479E87C42A7346F84135.ashx');
 
 call add_powersupply('cpsu002','Aerocool','Strike-X',850,'80+ Silver','Full Modular',5200,'Power Supply');
-call addImage('','');
+call addImage('cpsu002','https://image7.macovi.de/images/product_images/1280/797765_0__8431875.jpg');
 
 call add_powersupply('cpsu003','Corsair','AX1200i',1200,'80+ Platinum','Full modular',14990,'Power Supply');
-call addImage('','');
-
-
+call addImage('cpsu003','http://www.corsair.com/~/media/corsair/product%20photos/psu/ax-series/ax1200i/large/axi_psu_sideview_a.png');
 
 call add_graphicscard('cgpu001','Nvidia','MSI GT730 OC',1006,'GDDR5',2,5000,3050,'Graphics Card');
-call addImage('','');
+call addImage('cgpu001','https://76.my/Malaysia/msi-nvidia-pcie-geforce-gt730-oc-2gb-ddr5-jayacom-1607-19-F168445_1.jpg');
 
 call add_graphicscard('cgpu002','Nvidia','Asus GTX1050 Expedition',1455,'GDDR5',2,7008,5860,'Graphics Card');
-call addImage('','');
+call addImage('cgpu002','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSV6-mUVO5grxgYvlFxZ4zD74-OyK8qzxboy5nX4ZgU7-o64hUrw');
 
 call add_graphicscard('cgpu003','Nvidia','Gigabyte GTX1080 Ti Founders Edition',1582,'GDDR5',11,11010,38500,'Graphics Card');
-call addImage('','');
-
+call addImage('cgpu003','http://static.gigabyte.com/Product/3/6250/2017030216574215_big.png');
 
 call add_cooler('cc001','Cooler Master','MasterAir Maker 8','Intel & Amd: All sockets',false,250,6450,'Heatsink');
-call addImage('','');
+call addImage('cc001','http://assets.coolermaster.com/global/uploadfile/fileproduct_list/P1512030001c249/PRDPIC/13_870757e787cd60e52701e80d0d7ad2fd_1452570437.jpg');
 
 call add_cooler('cc002','NZXT','Kraken X52','Intel & Amd: All sockets',true,520,6800,'Heatsink');
-call addImage('','');
-
+call addImage('cc002','https://sta3-nzxtcorporation.netdna-ssl.com/uploads/manuals/kraken-x52.jpg');
 
 call add_motherboard('cmbo001','Asus','B150 Pro Gaming Aura','LGA 1151',4,'ATX',6450,'Motherboard');
-call addImage('','');
+call addImage('cmbo001','https://images10.newegg.com/ProductImage/13-132-693-07.jpg');
 
 call add_motherboard('cmbo002','MSI','H170 Gaming M3','LGA 1151',4,'ATX',6650,'Motherboard');
-call addImage('','');
+call addImage('cmbo002','https://www.msi.com/asset/resize/image/global/product/product_1_20160607151815_575675379221e.png62405b38c58fe0f07fcef2367d8a9ba1/600.png');
 
 call add_motherboard('cmbo003','Gigabyte','GA-Z270X Gaming 9','LGA 1151',4,'ATX',27500,'Motherboard');
-call addImage('','');
+call addImage('cmbo003','https://www.overclockers.co.uk/media/image/thumbnail/MB54KGI_154930_800x800.jpg');
 
 call add_motherboard('cmbo004','MSI','X370 Gaming Pro Carbon','LGA 1151',4,'ATX',11150,'Motherboard');
-call addImage('','');
-
+call addImage('cmbo004','https://www.msi.com/asset/resize/image/global/product/product_6_20170209183508_589c45dc217ba.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png');
 
 call add_storage('chd001','Seagate','Barracuda','Hard Drive','1','SATA',2490,'Storage');
-call addImage('','');
+call addImage('chd001','https://images-na.ssl-images-amazon.com/images/I/51h36uuxcJL.jpg');
 
 call add_storage('chd002','Western Digital','Caviar Black','Hard Drive','4','SATA',10350,'Storage');
-call addImage('','');
+call addImage('chd002','http://www.storagereview.com/images/caviar%20black%20top.jpg');
 
 call add_storage('chd003','Samsung','850 Evo','Solid State Drive','500','SATA',8500,'Storage');
-call addImage('','');
+call addImage('chd003','https://images-na.ssl-images-amazon.com/images/I/51xpsEBLcvL.jpg');
 
 
 call add_mouse('pm001','Redragon','Centrophorus M601',3200,'USB 2.0',550,'Mouse');
-call addImage('','');
+call addImage('pm001','http://www.eagletec.com/images/2014/10/Gaming-Mouse-Redragon-Centrophorus-Gaming-Mouse-M601-07.jpg');
 
 call add_mouse('pm002','Mad Catz','R.A.T.6',8200,'USB 2.0',4000,'Mouse');
-call addImage('','');
+call addImage('pm002','http://www.madcatz.com/imgs/product/rat6/gallery/rat6-1-th.png');
 
 
 call add_keyboard('ckb001','Logitech','KD800L',true,'Membrane',900,'Keyboard');
-call addImage('','');
+call addImage('ckb001','http://www.pcoptionsph.com/files/products/images/897_1.jpg');
 
 call add_keyboard('ckb002','Razer','Ornata Chroma',true,'Mech-Membrane',4790,'Keyboard');
-call addImage('','');
+call addImage('ckb002','http://multimedia.bbycastatic.ca/multimedia/products/500x500/105/10529/10529021.jpg');
 
 
 call add_monitor('pmon001','Acer','Predator XB1','16:9','27','2560x1440','165',38500,'Monitor');
-call addImage('','');
+call addImage('','https://static.acer.com/up/Resource/Acer/Predator_Minisite/Product_Series/Predator_XB1/Photogallery/20151028/Photogallery_Predator_XB1_front.png');
+
 
 
 
