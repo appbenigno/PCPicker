@@ -106,6 +106,12 @@
 <message name="getCustomerResponse">
 <part name="parameters" element="tns:getCustomerResponse"/>
 </message>
+<message name="rejectOrder">
+<part name="parameters" element="tns:rejectOrder"/>
+</message>
+<message name="rejectOrderResponse">
+<part name="parameters" element="tns:rejectOrderResponse"/>
+</message>
 <portType name="Pcpicker_webserviceForDesktop">
 <operation name="getPart">
 <input wsam:Action="http://Pcpicker_webserviceForDesktop/Pcpicker_webserviceForDesktop/getPartRequest" message="tns:getPart"/>
@@ -174,6 +180,10 @@
 <operation name="getCustomer">
 <input wsam:Action="http://Pcpicker_webserviceForDesktop/Pcpicker_webserviceForDesktop/getCustomerRequest" message="tns:getCustomer"/>
 <output wsam:Action="http://Pcpicker_webserviceForDesktop/Pcpicker_webserviceForDesktop/getCustomerResponse" message="tns:getCustomerResponse"/>
+</operation>
+<operation name="rejectOrder">
+<input wsam:Action="http://Pcpicker_webserviceForDesktop/Pcpicker_webserviceForDesktop/rejectOrderRequest" message="tns:rejectOrder"/>
+<output wsam:Action="http://Pcpicker_webserviceForDesktop/Pcpicker_webserviceForDesktop/rejectOrderResponse" message="tns:rejectOrderResponse"/>
 </operation>
 </portType>
 <binding name="Pcpicker_webserviceForDesktopPortBinding" type="tns:Pcpicker_webserviceForDesktop">
@@ -323,6 +333,15 @@
 </output>
 </operation>
 <operation name="getCustomer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="rejectOrder">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

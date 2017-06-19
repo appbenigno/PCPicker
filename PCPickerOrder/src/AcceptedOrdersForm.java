@@ -31,7 +31,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
         initComponents();
          this.branch = branch;
         btnAcceptOrder.setEnabled(false);
-        btnRejectOrder.setEnabled(false);
+       // btnRejectOrder.setEnabled(false);
         lblFName.setVisible(false);
         lblLName.setVisible(false);
         lblEmail.setVisible(false);
@@ -56,7 +56,6 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOrders = new javax.swing.JTable();
         btnAcceptOrder = new javax.swing.JButton();
-        btnRejectOrder = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblFName = new javax.swing.JLabel();
@@ -122,17 +121,10 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
             tblOrders.getColumnModel().getColumn(3).setMaxWidth(90);
         }
 
-        btnAcceptOrder.setText("Accept Order");
+        btnAcceptOrder.setText("Set Complete");
         btnAcceptOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAcceptOrderActionPerformed(evt);
-            }
-        });
-
-        btnRejectOrder.setText("Reject Order");
-        btnRejectOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRejectOrderActionPerformed(evt);
             }
         });
 
@@ -253,9 +245,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                                     .addGap(93, 93, 93)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnAcceptOrder)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRejectOrder)
-                                .addContainerGap())))
+                                .addGap(111, 111, 111))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -273,9 +263,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAcceptOrder)
-                        .addComponent(btnRejectOrder))
+                    .addComponent(btnAcceptOrder)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(1, 1, 1)
@@ -338,17 +326,10 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
     private void btnAcceptOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptOrderActionPerformed
        int row = tblOrders.getSelectedRow();
-       WebMethods.acceptOrder(
-               tblOrders.getValueAt(row, 1).toString(),
-               branch.getBranchId(),
-               txtDeliveryDate.getText()); 
+       //////////////////////////////////// 
        updateAll();
        
     }//GEN-LAST:event_btnAcceptOrderActionPerformed
-
-    private void btnRejectOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectOrderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRejectOrderActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -396,7 +377,6 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptOrder;
     private javax.swing.JButton btnComponentList;
-    private javax.swing.JButton btnRejectOrder;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -482,7 +462,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                     viewCustomerDetails(custId);
                     viewOrderDetails(orderId);
                     btnAcceptOrder.setEnabled(true);
-                    btnRejectOrder.setEnabled(true);
+                    //btnRejectOrder.setEnabled(true);
                 }
 
             }

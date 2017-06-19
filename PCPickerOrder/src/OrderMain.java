@@ -348,6 +348,8 @@ public class OrderMain extends javax.swing.JFrame {
 
     private void btnRejectOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectOrderActionPerformed
         // TODO add your handling code here:
+        WebMethods.rejectOrder(getSelectedOrder());
+        updateAll();
     }//GEN-LAST:event_btnRejectOrderActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -478,7 +480,7 @@ public class OrderMain extends javax.swing.JFrame {
                 if(selectedRow >=0)
                 {
                     int custId = Integer.parseInt(tblOrders.getValueAt(selectedRow, 1).toString());
-                    int orderId = Integer.parseInt(tblOrders.getValueAt(selectedRow, 0).toString());
+                    int orderId = getSelectedOrder();
                     viewCustomerDetails(custId);
                     viewOrderDetails(orderId);
                     btnAcceptOrder.setEnabled(true);
@@ -487,6 +489,13 @@ public class OrderMain extends javax.swing.JFrame {
 
             }
         });
+    }
+    private int getSelectedOrder()
+    {
+        int selectedRow = tblOrders.getSelectedRow();
+        if(selectedRow >=0)        
+            return Integer.parseInt(tblOrders.getValueAt(selectedRow, 0).toString());        
+        return 0;
     }
     private void viewOrderDetails(int orderId)
     {
