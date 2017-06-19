@@ -257,9 +257,18 @@ BEGIN
     values(cust_id_,NOW(), payment_type,deliveryAddress_,branch_id);
     SELECT LAST_INSERT_ID() FROM order_;
 END//
+select * from order_
+
+delimiter //
+create procedure rejectOrder( order_id_ int, nextbranchId int )
+BEGIN    
+    update order_ 
+    set nearestBranchRequest = nextbranchId 
+    where order_.order_id = order_id_;
+END//  
 
 
-drop procedure getActivePendingOrders;
+
 delimiter //
 create procedure getActivePendingOrders( branchId int )
 BEGIN
@@ -282,6 +291,9 @@ BEGIN
     update order_ set acceptedBy = branch_id where order_.order_id = order_id_;
     update order_ set order_.deliveryDate = STR_TO_DATE(deliveryDate_, '%m/%d/%Y') where order_.order_id = order_id_;
 END//  
+
+
+
 
 delimiter //
 create procedure getActiveOrders(cust_id_ int)
@@ -873,11 +885,9 @@ begin
 end//
 delimiter ;
 
-
-
 insert into branch values(null, 'Makati', 'SM Jazz Mall, Nicanor Garcia, Makati, NCR, Philippines', 3023,'SM Jazz Makati Branch');
 insert into branch values(null, 'Pasay', 'SM Mall of Asia, Seaside Boulevard, Pasay, Philippines', 3023,'Mall of Asia Branch');
-insert into branch values(null, 'Makati', 'SM Jazz Mall, Nicanor Garcia, Makati, NCR, Philippines', 3023,'Makati Branch');
+insert into branch values(null, 'Calabarzon', 'Glorietta 4, Bacoor, Calabarzon, Philippines', 3023,'Glorietta 4 Calabarzon Branch');
 
 call add_processor('ccpu123','Intel','Celeron G1840',2.8,2,2,'LGA 1150',53,2090,'Processor');
 call addImage('ccpu123','http://fast.ulmart.ru/p/mid/76/7619/761908.jpg');
