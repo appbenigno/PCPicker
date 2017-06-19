@@ -156,6 +156,7 @@ create table branch
     city varchar(50),
     address varchar(255),
     zip_code int,
+    name_ varchar(50),
     primary key (branch_id)
 );
 create table order_
@@ -689,12 +690,12 @@ call getActiveOrders(1)
 
 
 
-
 delimiter //
 create procedure getActivePendingOrders(  )
 BEGIN
-    select * from order_ where active = true and acceptedBy = null and cancel = false;
+    select * from order_ where active = 1 and acceptedBy is null and cancel = false;
 END//  
+
 
 delimiter //
 create procedure acceptOrder
@@ -772,7 +773,13 @@ BEGIN
 END//  
 
 
-
+delimiter //
+create procedure getCustomer(
+	cust_id_ int
+    )
+    BEGIN
+		select * from customer where cust_id = cust_id_;
+	END//
 
 delimiter //
 create procedure setDelivered
@@ -837,8 +844,18 @@ begin
 end//
 delimiter ;
 
+delimiter //
+create procedure get_Branch_list(  )
+begin
+	select * from branch;
+end//
+delimiter ;
 
-insert into branch values(null, 'Bulacan', 'B21 L8 Francisco Homes III', 3023);
+
+
+insert into branch values(null, 'Makati', 'SM Jazz Mall, Nicanor Garcia, Makati, NCR, Philippines', 3023,'SM Jazz Makati Branch');
+insert into branch values(null, 'Pasay', 'SM Mall of Asia, Seaside Boulevard, Pasay, Philippines', 3023,'Mall of Asia Branch');
+insert into branch values(null, 'Makati', 'SM Jazz Mall, Nicanor Garcia, Makati, NCR, Philippines', 3023,'Makati Branch');
 
 call add_processor('ccpu123','Intel','Celeron G1840',2.8,2,2,'LGA 1150',53,2090,'Processor');
 call addImage('ccpu123','http://fast.ulmart.ru/p/mid/76/7619/761908.jpg');
