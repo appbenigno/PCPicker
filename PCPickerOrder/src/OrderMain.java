@@ -81,8 +81,6 @@ public class OrderMain extends javax.swing.JFrame {
         lblDDetails = new javax.swing.JLabel();
         lblPaymentType = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        lblPayment = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         lblNumItems = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -174,13 +172,9 @@ public class OrderMain extends javax.swing.JFrame {
 
         jLabel12.setText("Payment Type: ");
 
-        lblPayment.setText("...");
-
-        jLabel10.setText("Payment Method:");
-
         jLabel15.setText("Number Items: ");
 
-        lblNumItems.setText("total cost placeholder");
+        lblNumItems.setText("    ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel4.setText("Pending Orders");
@@ -235,13 +229,11 @@ public class OrderMain extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel12)
-                                                .addComponent(jLabel15)
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel15))
+                                            .addGap(19, 19, 19)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(lblNumItems)
-                                                .addComponent(lblPaymentType)
-                                                .addComponent(lblPayment))))
+                                                .addComponent(lblPaymentType))))
                                     .addGap(93, 93, 93)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnAcceptOrder)
@@ -293,12 +285,8 @@ public class OrderMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(lblNumItems))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(lblPayment))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblNumItems))))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnComponentList))
@@ -385,7 +373,6 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JButton btnRejectOrder;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
@@ -401,7 +388,6 @@ public class OrderMain extends javax.swing.JFrame {
     private javax.swing.JLabel lblFName;
     private javax.swing.JLabel lblLName;
     private javax.swing.JLabel lblNumItems;
-    private javax.swing.JLabel lblPayment;
     private javax.swing.JLabel lblPaymentType;
     private javax.swing.JTable tblOrders;
     // End of variables declaration//GEN-END:variables

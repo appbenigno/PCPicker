@@ -92,13 +92,11 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblNumItems" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblPaymentType" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblPayment" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -172,14 +170,9 @@
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblNumItems" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPayment" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnComponentList" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -323,16 +316,6 @@
         <Property name="text" type="java.lang.String" value="Payment Type: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblPayment">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="..."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Payment Method:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
         <Property name="text" type="java.lang.String" value="Number Items: "/>
@@ -340,7 +323,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNumItems">
       <Properties>
-        <Property name="text" type="java.lang.String" value="total cost placeholder"/>
+        <Property name="text" type="java.lang.String" value="    "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">

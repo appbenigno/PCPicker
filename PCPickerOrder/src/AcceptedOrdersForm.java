@@ -68,8 +68,6 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
         lblDDetails = new javax.swing.JLabel();
         lblPaymentType = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        lblPayment = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtDeliveryDate = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
@@ -158,15 +156,11 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
         jLabel12.setText("Payment Type: ");
 
-        lblPayment.setText("...");
-
-        jLabel10.setText("Payment Method:");
-
         jLabel7.setText("Set Delivery Date:");
 
         jLabel15.setText("Number Items: ");
 
-        lblNumItems.setText("total cost placeholder");
+        lblNumItems.setText("   ");
 
         jLabel5.setText("mm / dd / yyyy");
 
@@ -224,7 +218,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(158, 158, 158)
                                         .addComponent(jLabel5)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -242,13 +236,11 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel12)
-                                                .addComponent(jLabel15)
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel15))
+                                            .addGap(19, 19, 19)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(lblNumItems)
-                                                .addComponent(lblPaymentType)
-                                                .addComponent(lblPayment))))
+                                                .addComponent(lblPaymentType))))
                                     .addGap(93, 93, 93)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnAcceptOrder)
@@ -304,12 +296,8 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(lblNumItems))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(lblPayment))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblNumItems))))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnComponentList))
@@ -394,7 +382,6 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
     private javax.swing.JButton btnComponentList;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
@@ -412,7 +399,6 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblFName;
     private javax.swing.JLabel lblLName;
     private javax.swing.JLabel lblNumItems;
-    private javax.swing.JLabel lblPayment;
     private javax.swing.JLabel lblPaymentType;
     private javax.swing.JTable tblOrders;
     private javax.swing.JTextField txtDeliveryDate;
