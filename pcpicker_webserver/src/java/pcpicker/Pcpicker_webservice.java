@@ -769,26 +769,7 @@ public class Pcpicker_webservice
         return a;
     }
     
-    private int getNearestBranch(Order order)
-    {
-        ArrayList<Branch> branchList= new ArrayList<Branch>();
-        //branchList = getBranchestList();
-        double lowestDistance = DistanceCalculator.distance(order.coordinates,branchList.get(0).getCoordinates());
-        Branch nearestBranch = branchList.get(0);
-        for(int i=1; i < branchList.size(); i++)
-        {
-            double distance = DistanceCalculator.distance(order.coordinates,branchList.get(i).getCoordinates());
-            if(distance<lowestDistance)
-            {
-                lowestDistance = distance;
-                nearestBranch = branchList.get(i);
-            }            
-        }
-        
-        return nearestBranch.getBranch_id();
-    }
-      
-    private ArrayList<Branch> getBranchesList() {
+    public  ArrayList<Branch> getBranchesList() {
         ArrayList<Branch> a = new ArrayList(); ///////////////////////////////
         int i = 0;
 
@@ -819,6 +800,7 @@ public class Pcpicker_webservice
         return a;
     }
     
+    
     @WebMethod(operationName = "addOrder")
     public int addOrder(
             @WebParam(name = "cust_id") int cust_id, 
@@ -837,7 +819,7 @@ public class Pcpicker_webservice
             callableStatement.setInt(1, cust_id);
             callableStatement.setString(2,paymentType);
             callableStatement.setString(3,deliveryAddress);
-            callableStatement.setInt(4, 1);
+            callableStatement.setInt(4, DistanceCalculator.getNearestBranch(deliveryAddress,getBranchesList()));
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 order_id = rs.getInt(1);

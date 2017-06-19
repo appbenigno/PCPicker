@@ -26,7 +26,14 @@
 /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 package shared;
 
+import Pcpicker_webserviceForDesktop.Branch;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import pcpicker.Coordinates;
+import pcpicker.Order;
 
 /**
  *
@@ -72,4 +79,65 @@ public class DistanceCalculator {
     public static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }
+    public static int getNearestBranch(String address, ArrayList<Branch> branchList)
+    {
+       
+        Coordinates deliveryAddress = Coordinates.getCoordinates(address);
+        double lowestDistance = DistanceCalculator.distance(deliveryAddress,branchList.get(0).getCoordinates());
+        Branch nearestBranch = branchList.get(0);
+        for(int i=1; i < branchList.size(); i++)
+        {
+            double distance = DistanceCalculator.distance(deliveryAddress,branchList.get(i).getCoordinates());
+            if(distance<lowestDistance)
+            {
+                lowestDistance = distance;
+                nearestBranch = branchList.get(i);
+            }            
+        }
+        
+        return nearestBranch.getBranch_id();
+    }
+      
+    public static int getNextNearestBranch(Order order, ArrayList<Branch> branchList)            
+    {
+        Coordinates currentBranchCoord = getBranch(order.getNearestBranchRequest(), branchList).getCoordinates();
+        Coordinates deliveryAddress = Coordinates.getCoordinates(order.getDeliveryAddress());
+        double currentDistance = DistanceCalculator.distance(deliveryAddress, currentBranchCoord);
+        
+        
+        double nextLowestDistance = 9999;
+        Branch nextNearestBranch = null;
+        Boolean nextNearestFound = false;
+        for(int i=0; i < branchList.size(); i++)
+        {
+            double distance = DistanceCalculator.distance(deliveryAddress,branchList.get(i).getCoordinates());
+            System.out.println("distance " + distance);
+            System.out.println("nextLowestDistance "+nextLowestDistance);
+            System.out.println("currentDistance " + currentDistance);
+            System.out.println("..");
+            if(distance<nextLowestDistance && distance > currentDistance)
+            {
+                nextLowestDistance = distance;
+                nextNearestBranch = branchList.get(i);
+                nextNearestFound = true;
+                System.out.println("foundnext");
+            }            
+        }
+        if(!nextNearestFound)
+            return getNearestBranch(order.getDeliveryAddress(), branchList);
+        
+        return nextNearestBranch.getBranch_id();
+        
+    }
+    
+    private static Branch getBranch(int branchid, ArrayList<Branch> branches)
+    {
+        for(Branch branch : branches)
+            if(branch.getBranch_id() == branchid)
+                return branch;
+        
+        return null;      
+        
+    }
+   
 }
