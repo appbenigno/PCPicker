@@ -19,17 +19,17 @@ import pcpicker_webservicefordesktop.Customer;
 import pcpicker_webservicefordesktop.Order;
 import pcpicker_webservicefordesktop.OrderParts;
 
-public class OrderMain extends javax.swing.JFrame {
+public class AcceptedOrdersForm extends javax.swing.JFrame {
     List<pcpicker_webservicefordesktop.Order> orderList = null;
     Branch branch = null;
     List<Customer> customerList= null;
     /** Creates new form PCPicker */
-    public OrderMain() {
+    public AcceptedOrdersForm() {
         initComponents();        
     }
-    public OrderMain(Branch branch) {
+    public AcceptedOrdersForm(Branch branch) {
         initComponents();
-        this.branch = branch;
+         this.branch = branch;
         btnAcceptOrder.setEnabled(false);
         btnRejectOrder.setEnabled(false);
         lblFName.setVisible(false);
@@ -178,10 +178,10 @@ public class OrderMain extends javax.swing.JFrame {
         jLabel5.setText("mm / dd / yyyy");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setText("Pending Orders");
+        jLabel4.setText("Accepted Orders");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("View Accepted Orders");
+        jButton1.setText("View Pending Orders");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -225,7 +225,7 @@ public class OrderMain extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(158, 158, 158)
                                         .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -257,21 +257,21 @@ public class OrderMain extends javax.swing.JFrame {
                                 .addComponent(btnRejectOrder)
                                 .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 25, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAcceptOrder)
@@ -352,7 +352,7 @@ public class OrderMain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        AcceptedOrdersForm ao = new AcceptedOrdersForm(branch);
+        OrderMain ao = new OrderMain(branch);
         ao.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

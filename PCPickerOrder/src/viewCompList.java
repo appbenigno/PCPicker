@@ -3,6 +3,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import pcpicker_webservicefordesktop.Order;
+import pcpicker_webservicefordesktop.OrderParts;
 
 
 /*
@@ -23,10 +25,10 @@ public class viewCompList extends javax.swing.JFrame {
     public viewCompList() {
         initComponents();
     }
-    ArrayList<pcpicker_webservicefordesktop.OrderParts> compList = null;
-    public viewCompList(ArrayList<pcpicker_webservicefordesktop.OrderParts> obj) {
+    Order order = null;
+    public viewCompList(Order order) {
         initComponents();
-        compList = obj;
+        this.order = order;
         populateComponents();
     }
 
@@ -42,21 +44,28 @@ public class viewCompList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblComponents = new javax.swing.JTable();
         btnOK = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblComponents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Order ID", "Part ID", "Quantity"
+                "Part ID", "Part Name", "Quantity", "Price per Item", "Subtotal"
             }
         ));
         jScrollPane1.setViewportView(tblComponents);
+        if (tblComponents.getColumnModel().getColumnCount() > 0) {
+            tblComponents.getColumnModel().getColumn(0).setResizable(false);
+            tblComponents.getColumnModel().getColumn(1).setResizable(false);
+            tblComponents.getColumnModel().getColumn(2).setResizable(false);
+            tblComponents.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tblComponents.getColumnModel().getColumn(3).setResizable(false);
+            tblComponents.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -65,28 +74,45 @@ public class viewCompList extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Total");
+
+        lblTotal.setText("Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnOK)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(btnOK)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblTotal)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(btnOK)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -130,7 +156,9 @@ public class viewCompList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblComponents;
     // End of variables declaration//GEN-END:variables
 
@@ -141,14 +169,22 @@ public class viewCompList extends javax.swing.JFrame {
     }
     public void populateComponents(){
         DefaultTableModel tblModel = (DefaultTableModel)tblComponents.getModel();
-        List<pcpicker_webservicefordesktop.OrderParts> orderList = getOrderComponentList();
-        Object row[] = new Object[3];
-        for (int i = 0 ; i < orderList.size() ; i++){
-            row[0] = orderList.get(i).getOrderId();
-            row[0] = orderList.get(i).getPartId();
-            row[0] = orderList.get(i).getQuantity();
-            tblModel.addRow(row);
+        Double total = 0.0;
+        for(OrderParts op : order.getItems())
+        {
+            Object col[] = new Object[5];// id name quantity price subtotal
+            col[0] = op.getPartId();
+            col[1] = op.getPart().getPartName();
+            col[2] = op.getQuantity();
+            col[3] = "₱ " + Double.toString(op.getPrice());
+            double subtotal = op.getPrice() * op.getQuantity();
+            col[4] = "₱ " + Double.toString(subtotal);            
+            total += subtotal;
+            
+            tblModel.addRow(col);
         }
+        lblTotal.setText("₱" + Double.toString(total));
+        
     }
 }
 
