@@ -18,10 +18,10 @@ public class WebMethods {
         return port.getOrderComponentList();
     }
 
-    public static void acceptOrder(java.lang.String orderId, int branchId, String deliveryDate) {
+    public static void acceptOrder(int orderId, int branchId) {
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
-        port.acceptOrder(orderId, branchId, deliveryDate);
+        port.acceptOrder(orderId, branchId);
     }
     
 //    public static java.util.List<pcpicker_webservicefordesktop.Order> getOrderList() {
@@ -66,5 +66,23 @@ public class WebMethods {
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
         return port.rejectOrder(orderId);
+    }
+
+    public static int completeOrder(int orderId) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.completeOrder(orderId);
+    }
+
+    public static void setOrderDeliveryDate(int orderId, java.lang.String deliveryDate) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        port.setOrderDeliveryDate(orderId, deliveryDate);
+    }
+
+    public static java.util.List<pcpicker_webservicefordesktop.Order> getForDeliveryOrders(int branchId) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getForDeliveryOrders(branchId);
     }
 }

@@ -20,6 +20,10 @@
 
 <xs:element name="addPowerSupplyResponse" type="tns:addPowerSupplyResponse"/>
 
+<xs:element name="completeOrder" type="tns:completeOrder"/>
+
+<xs:element name="completeOrderResponse" type="tns:completeOrderResponse"/>
+
 <xs:element name="getActivePendingOrderList" type="tns:getActivePendingOrderList"/>
 
 <xs:element name="getActivePendingOrderListResponse" type="tns:getActivePendingOrderListResponse"/>
@@ -43,6 +47,10 @@
 <xs:element name="getDeliveryList" type="tns:getDeliveryList"/>
 
 <xs:element name="getDeliveryListResponse" type="tns:getDeliveryListResponse"/>
+
+<xs:element name="getForDeliveryOrders" type="tns:getForDeliveryOrders"/>
+
+<xs:element name="getForDeliveryOrdersResponse" type="tns:getForDeliveryOrdersResponse"/>
 
 <xs:element name="getInventoryList" type="tns:getInventoryList"/>
 
@@ -271,13 +279,25 @@
 
 <xs:complexType name="setOrderDeliveryDate">
 <xs:sequence>
-<xs:element name="order_id" type="xs:string" minOccurs="0"/>
+<xs:element name="order_id" type="xs:int"/>
 <xs:element name="deliveryDate_" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="setOrderDeliveryDateResponse">
 <xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="completeOrder">
+<xs:sequence>
+<xs:element name="orderId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="completeOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getProcessor">
@@ -312,9 +332,8 @@
 
 <xs:complexType name="acceptOrder">
 <xs:sequence>
-<xs:element name="order_id" type="xs:string" minOccurs="0"/>
+<xs:element name="order_id" type="xs:int"/>
 <xs:element name="branch_id" type="xs:int"/>
-<xs:element name="deliveryDate_" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -376,6 +395,18 @@
 <xs:complexType name="getInventoryListResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Inventory" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getForDeliveryOrders">
+<xs:sequence>
+<xs:element name="branch_id" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getForDeliveryOrdersResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Order" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

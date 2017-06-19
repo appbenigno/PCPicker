@@ -77,6 +77,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnAcceptOrder1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,7 +99,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order ID", "Customer ID", "Total", "Date Created", "DeliveryAddress"
+                "Order ID", "Customer ID", "Total", "Date of Delivery", "DeliveryAddress"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -180,6 +181,13 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
             }
         });
 
+        btnAcceptOrder1.setText("Set Delivery Date");
+        btnAcceptOrder1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptOrder1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,31 +201,30 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblFName))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblLName))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblEmail)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFName))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblLName))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEmail))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(75, 75, 75)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAcceptOrder1))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(158, 158, 158)
-                                        .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)))
+                                        .addComponent(jLabel5)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -269,7 +276,8 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcceptOrder1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -326,7 +334,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
     private void btnAcceptOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptOrderActionPerformed
        int row = tblOrders.getSelectedRow();
-       //////////////////////////////////// 
+       WebMethods.completeOrder(getSelectedOrder());
        updateAll();
        
     }//GEN-LAST:event_btnAcceptOrderActionPerformed
@@ -337,6 +345,12 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
         ao.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAcceptOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptOrder1ActionPerformed
+        // TODO add your handling code here:
+        WebMethods.setOrderDeliveryDate(getSelectedOrder(), txtDeliveryDate.getText());
+        updateAll();
+    }//GEN-LAST:event_btnAcceptOrder1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,6 +390,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptOrder;
+    private javax.swing.JButton btnAcceptOrder1;
     private javax.swing.JButton btnComponentList;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -420,7 +435,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
     
     private void updateAll()
     {
-        orderList = WebMethods.getActivePendingOrderList(branch.getBranchId());
+        orderList = WebMethods.getForDeliveryOrders(branch.getBranchId());
         customerList = WebMethods.getCustomerList_1();
         System.out.println("customerList.size: " + customerList.size());
        
@@ -436,7 +451,8 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
             row[0] = orderList.get(i).getOrderId();
             row[1] = orderList.get(i).getCustId();
             row[2] = "₱ " + Double.toString(calculateTotal(orderList.get(i)));
-            row[3] = orderList.get(i).getDateCreated();
+            row[3] = orderList.get(i).getDeliveryDate();
+            System.out.println(orderList.get(i).getDeliveryAddress());
             row[4] = orderList.get(i).getDeliveryAddress();
             tblModel.addRow(row);            
         }
@@ -467,6 +483,13 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
 
             }
         });
+    }
+    private int getSelectedOrder()
+    {
+        int selectedRow = tblOrders.getSelectedRow();
+        if(selectedRow >=0)        
+            return Integer.parseInt(tblOrders.getValueAt(selectedRow, 0).toString());        
+        return 0;
     }
     private void viewOrderDetails(int orderId)
     {
