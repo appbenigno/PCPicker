@@ -85,4 +85,10 @@ public class WebMethods {
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
         return port.getForDeliveryOrders(branchId);
     }
+
+    public static int getNumLists(int branchid) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getNumLists(branchid);
+    }
 }

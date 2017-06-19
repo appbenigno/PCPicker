@@ -8,9 +8,12 @@
  *
  * @author sam
  */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -40,8 +43,17 @@ public class OrderMain extends javax.swing.JFrame {
         updateAll();
         addListeners();
         jLabel4.setText(jLabel4.getText() + " - " + branch.getName());
+        timer.start();
     }
 
+    Timer timer = new Timer(1000,new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e){
+        int size = WebMethods.getNumLists(branch.getBranchId());
+        if(size != orderList.size())
+            updateAll();
+    } 
+    });
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
