@@ -144,12 +144,11 @@
 <xs:element name="cust_id" type="xs:int"/>
 <xs:element name="date_created" type="xs:string" minOccurs="0"/>
 <xs:element name="payment_type" type="xs:string" minOccurs="0"/>
-<xs:element name="active" type="xs:boolean" minOccurs="0"/>
+<xs:element name="status" type="xs:int"/>
+<xs:element name="nearestBranchRequest" type="xs:int"/>
 <xs:element name="acceptedBy" type="xs:int"/>
 <xs:element name="items" type="tns:Order_Parts" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="deliveryDate" type="xs:string" minOccurs="0"/>
-<xs:element name="cancel" type="xs:boolean" minOccurs="0"/>
-<xs:element name="cancelDate" type="xs:string" minOccurs="0"/>
 <xs:element name="deliveryAddress" type="xs:string" minOccurs="0"/>
 <xs:element name="coodinates" type="tns:Coordinates" minOccurs="0"/>
 </xs:sequence>
@@ -213,7 +212,9 @@
 </xs:complexType>
 
 <xs:complexType name="getActivePendingOrderList">
-<xs:sequence/>
+<xs:sequence>
+<xs:element name="branch_id" type="xs:int"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getActivePendingOrderListResponse">

@@ -440,7 +440,7 @@ public class AcceptedOrdersForm extends javax.swing.JFrame {
     
     private void updateAll()
     {
-        orderList = WebMethods.getActivePendingOrderList();
+        orderList = WebMethods.getActivePendingOrderList(branch.getBranchId());
         customerList = WebMethods.getCustomerList_1();
         System.out.println("customerList.size: " + customerList.size());
        

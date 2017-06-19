@@ -36,11 +36,7 @@ public class WebMethods {
         return port.getBranchesList();
     }
 
-    public static java.util.List<pcpicker_webservicefordesktop.Order> getActivePendingOrderList() {
-        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
-        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
-        return port.getActivePendingOrderList();
-    }
+   
 
     public static java.util.List<pcpicker_webservicefordesktop.Customer> getCustomerList() {
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
@@ -58,5 +54,11 @@ public class WebMethods {
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
         pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
         return port.getCustomerList();
+    }
+
+    public static java.util.List<pcpicker_webservicefordesktop.Order> getActivePendingOrderList(int branchId) {
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service service = new pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop_Service();
+        pcpicker_webservicefordesktop.PcpickerWebserviceForDesktop port = service.getPcpickerWebserviceForDesktopPort();
+        return port.getActivePendingOrderList(branchId);
     }
 }
