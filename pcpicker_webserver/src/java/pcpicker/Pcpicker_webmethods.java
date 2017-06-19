@@ -390,39 +390,39 @@ public class Pcpicker_webmethods {
         return a;
     }
 
-    public ArrayList<Inventory> getInventoryList() {
-        ArrayList<Inventory> a = new ArrayList(); ///////////////////////////////
-        int i = 0;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql::localhost:3306/pcpicker", "root", "");
-
-            String sql = "{call get_Inventory_list()}"; ////////////////////////////////
-            CallableStatement callableStatement = conn.prepareCall(sql);
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int last = a.size();
-                a.add(new Inventory()); ////////////////////////////////////////////
-
-                a.get(last).setComp_id(rs.getInt(1));/////////////////////////////
-                a.get(last).setDate_acquired(rs.getString(2));//////////////////
-                a.get(last).setBranch_id(rs.getInt(3));////////////////
-                a.get(last).setQuantity(rs.getInt(4));///////////////
-            
-                a.get(last).setComp_name(rs.getString(6));
-                a.get(last).setComp_price(rs.getDouble(7));
-                a.get(last).setComp_manufacturer(rs.getString(8));
-                a.get(last).setComp_type(rs.getString(9));
-            }
-            callableStatement.close();
-            conn.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return a;
-    }
+//    public Inventory getInventoryList() {
+//        ArrayList<Inventory> a = new ArrayList(); ///////////////////////////////
+//        int i = 0;
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection conn = DriverManager.getConnection("jdbc:mysql::localhost:3306/pcpicker", "root", "");
+//
+//            String sql = "{call get_Inventory_list()}"; ////////////////////////////////
+//            CallableStatement callableStatement = conn.prepareCall(sql);
+//            ResultSet rs = callableStatement.executeQuery();
+//
+//            while (rs.next()) {
+//                int last = a.size();
+//                a.add(new Inventory()); ////////////////////////////////////////////
+//
+//                a.get(last).setComp_id(rs.getInt(1));/////////////////////////////
+//                a.get(last).setDate_acquired(rs.getString(2));//////////////////
+//                a.get(last).setBranch_id(rs.getInt(3));////////////////
+//                a.get(last).setQuantity(rs.getInt(4));///////////////
+//            
+//                a.get(last).setComp_name(rs.getString(6));
+//                a.get(last).setComp_price(rs.getDouble(7));
+//                a.get(last).setComp_manufacturer(rs.getString(8));
+//                a.get(last).setComp_type(rs.getString(9));
+//            }
+//            callableStatement.close();
+//            conn.close();
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        return a;
+//    }
 
 
     public ArrayList<Delivery> getDeliveryList() {

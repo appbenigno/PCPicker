@@ -7,6 +7,34 @@ public class Customer
 {
 
     /**
+     * @return the lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname the lastname to set
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    /**
+     * @return the firstname
+     */
+    public String getFirstname() {
+        return firstname;
+    }
+
+    /**
+     * @param firstname the firstname to set
+     */
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    /**
      * @return the cust_id
      */
     public int getCust_id() {
@@ -101,4 +129,9 @@ public class Customer
     private String city;    
     @XmlElement(name = "zip_code")
     private int zip_code;    
+    
+    @XmlElement(name = "lastname")
+    private String lastname;   
+    @XmlElement(name = "firstname")
+    private String firstname;   
 }

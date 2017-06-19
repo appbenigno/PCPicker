@@ -13,7 +13,8 @@ public class Order_Parts
     private int quantity;
     @XmlElement(name = "price")
     protected double price;
-
+    @XmlElement(name = "part")
+    protected Part part;
     
     
     
@@ -71,5 +72,19 @@ public class Order_Parts
      */
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    /**
+     * @return the part
+     */
+    public Part getPart() {
+        return part;
+    }
+
+    /**
+     * @param part the part to set
+     */
+    public void setPart(Part part) {
+        this.part = part;
     }
 }

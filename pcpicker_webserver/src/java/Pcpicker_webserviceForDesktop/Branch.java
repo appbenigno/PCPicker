@@ -1,6 +1,7 @@
 package Pcpicker_webserviceForDesktop;
 
 import javax.xml.bind.annotation.*;
+import pcpicker.Coordinates;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Branch")
 public class Branch 
@@ -45,7 +46,7 @@ public class Branch
      * @param address the address to set
      */
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address;        
     }
 
     /**
@@ -68,5 +69,35 @@ public class Branch
     @XmlElement(name = "address")
     private String address;
     @XmlElement(name = "zip_code")
-    private int zip_code;    
+    private int zip_code;  
+    @XmlElement(name = "name")
+    protected String name; 
+    @XmlElement(name ="coodinates")
+    protected Coordinates coordinates; 
+
+    public void getCoordinatesFromAPI()
+    {
+        coordinates = Coordinates.getCoordinates(address);
+    }
+    
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the coordinates
+     */
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
 }
