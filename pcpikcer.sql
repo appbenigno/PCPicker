@@ -159,22 +159,28 @@ create table branch
     name_ varchar(50),
     primary key (branch_id)
 );
+
+#-- 1 pending
+#-- 2 for delivery
+#-- 3 completed
+#-- 4 canceled
 create table order_
 (
     order_id int auto_increment,
     cust_id int,
     date_created date,
     payment_type varchar(20),
-    active bool default true,    
+    status_ int default 1,
+    nearestBranchRequest int default null,
     acceptedBy int default null,
     deliveryDate date default null,
-    cancel bool default false,
-    cancelDate Date default null,
     deliveryAddress varchar(255),
     primary key (order_id),
     foreign key (cust_id) references customer(cust_id),
     foreign key (acceptedBy) references branch(branch_id)
 );
+
+
 
 create table order_part
 (
@@ -239,6 +245,80 @@ BEGIN
 END//
 Delimiter ;
 
+delimiter //
+create procedure addOrder(
+	cust_id_ int, 
+	payment_type varchar(20),
+	deliveryAddress_ varchar(255),
+    branch_id int
+)
+BEGIN
+    insert into order_(cust_id,date_created,payment_type,deliveryAddress,nearestBranchRequest)
+    values(cust_id_,NOW(), payment_type,deliveryAddress_,branch_id);
+    SELECT LAST_INSERT_ID() FROM order_;
+END//
+
+
+drop procedure getActivePendingOrders;
+delimiter //
+create procedure getActivePendingOrders( branchId int )
+BEGIN
+    select * from order_ 
+    where status_ = 1
+    and acceptedBy is null
+    and (nearestBranchRequest = branchId);
+END//  
+
+
+delimiter //
+create procedure acceptOrder
+(
+    order_id_ varchar(25),
+    branch_id int,
+    deliveryDate_ varchar(25)
+)
+BEGIN
+    update order_ set status_ = 2 where order_.order_id = order_id_;
+    update order_ set acceptedBy = branch_id where order_.order_id = order_id_;
+    update order_ set order_.deliveryDate = STR_TO_DATE(deliveryDate_, '%m/%d/%Y') where order_.order_id = order_id_;
+END//  
+
+delimiter //
+create procedure getActiveOrders(cust_id_ int)
+BEGIN
+    select * from order_ 
+    where order_.cust_id = cust_id_ 
+    and (order_.status_ = 1 or order_.status_ = 2)
+    order by order_.order_id desc;
+END//
+
+delimiter //
+create procedure cancelOrder(order_id_ int)
+BEGIN
+    update order_ set status_ = 4 where order_.order_id = order_id_;
+    update order_ set nearestBranchRequest = null where order_.order_id = order_id_;
+    update order_ set deliveryDate = null where order_id = order_id_;
+END//
+
+delimiter //
+create procedure setCompleted
+(
+    order_id_ varchar(25)
+)
+BEGIN    
+    update order_ 
+    set status_ = 3
+    where order_.order_id = order_id_;
+END//  
+
+delimiter //
+create procedure getHistoryOrders(cust_id_ int)
+BEGIN
+    select * from order_ 
+    where order_.cust_id = cust_id_ 
+    and order_.status_ = 3 
+    order by order_.order_id desc;
+END//
 
 delimiter //
 create procedure add_memory
@@ -663,17 +743,7 @@ END//
 
 
 
-delimiter //
-create procedure addOrder(
-cust_id_ int, 
-payment_type varchar(20),
-deliveryAddress_ varchar(255)
-)
-BEGIN
-    insert into order_(cust_id,date_created,payment_type,deliveryAddress)
-    values(cust_id_,NOW(), payment_type,deliveryAddress_);
-    SELECT LAST_INSERT_ID() FROM order_;
-END//
+
 
 delimiter //
 create procedure addOrderpart(order_id int,  part_id varchar(25), quantity int, price double)
@@ -682,7 +752,6 @@ BEGIN
 END//
 
 
-call getActiveOrders(1)
 
 
 
@@ -690,24 +759,10 @@ call getActiveOrders(1)
 
 
 
-delimiter //
-create procedure getActivePendingOrders(  )
-BEGIN
-    select * from order_ where active = 1 and acceptedBy is null and cancel = false;
-END//  
 
 
-delimiter //
-create procedure acceptOrder
-(
-    order_id_ varchar(25),
-    branch_id int,
-    deliveryDate_ varchar(25)
-)
-BEGIN
-    update order_ set acceptedBy = branch_id where order_.order_id = order_id_;
-    update order_ set order_.deliveryDate = STR_TO_DATE(deliveryDate_, '%m/%d/%Y') where order_.order_id = order_id_;
-END//  
+
+
 
 delimiter //
 create procedure setOrderDeliveryDate
@@ -718,15 +773,6 @@ create procedure setOrderDeliveryDate
 BEGIN
 	update order_ set order_.deliveryDate = STR_TO_DATE(deliveryDate_, '%m/%d/%Y') where order_.order_id = order_id_;
 END//  
-delimiter //
-create procedure getActiveOrders(cust_id_ int)
-BEGIN
-    select * from order_ 
-    where order_.cust_id = cust_id_ 
-    and order_.active = true 
-    and order_.cancel = false
-    order by order_.order_id desc;
-END//
 
 
 delimiter //
@@ -735,13 +781,7 @@ BEGIN
     select * from order_part where order_part.order_id = order_id_;
 END//
 
-delimiter //
-create procedure cancelOrder(order_id_ int)
-BEGIN
-    update order_ set cancel = true where order_.order_id = order_id_;
-    update order_ set active = false where order_.order_id = order_id_;
-    update order_ set cancelDate = NOW() where order_id = order_id_;
-END//
+
 
 delimiter //
 create procedure getOrder(order_id int)
@@ -781,26 +821,8 @@ create procedure getCustomer(
 		select * from customer where cust_id = cust_id_;
 	END//
 
-delimiter //
-create procedure setDelivered
-(
-    order_id_ varchar(25)
-)
-BEGIN
-    update order_ set acceptedBy = branch_id where order_.order_id = order_id_;
-    update order_ set order_.deliveryDate = STR_TO_DATE(deliveryDate_, '%m/%d/%Y') where order_.order_id = order_id_;
-END//  
 
 
-delimiter //
-create procedure getHistoryOrders(cust_id_ int)
-BEGIN
-    select * from order_ 
-    where order_.cust_id = cust_id_ 
-    and order_.active = false 
-    and order_.cancel = false
-    order by order_.order_id desc;
-END//
 
 delimiter //
 create procedure get_Inventory_list()
