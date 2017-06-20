@@ -21,11 +21,11 @@ public class JavaApplication36 {
         SelectBranchForm sbf = new SelectBranchForm();
         sbf.setVisible(true);
         
-         SelectBranchForm sbf2 = new SelectBranchForm();
-        sbf2.setVisible(true);
-        
-         SelectBranchForm sbf3 = new SelectBranchForm();
-        sbf3.setVisible(true);
+//         SelectBranchForm sbf2 = new SelectBranchForm();
+//        sbf2.setVisible(true);
+//        
+//         SelectBranchForm sbf3 = new SelectBranchForm();
+//        sbf3.setVisible(true);
         
     }
 
